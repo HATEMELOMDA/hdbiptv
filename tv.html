@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HDB Hotel — IPTV TV</title>
+
+  <!-- ملفات مشتركة -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/i18n.js" defer></script>
+  <script src="js/offers.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+
+  <!-- خاص بالصفحة -->
+  <link rel="stylesheet" href="css/tv.css" />
+  <script src="assets/libs/hls/hls.min.js"></script>
+  <script src="js/tv.js" defer></script>
+</head>
+
+<body data-page="tv">
+  <!-- شاشة العرض -->
+  <video id="tv-screen" autoplay playsinline></video>
+
+  <!-- قائمة القنوات -->
+  <div id="channel-list-box" class="hidden" role="menu" aria-hidden="true">
+    <ul id="channel-list"></ul>
+  </div>
+
+  <!-- الشريط السفلي -->
+  <div id="channel-bar">
+    <div class="left">
+      <div id="channel-info">
+        <div id="channel-number">1</div>
+        <div id="channel-name">HDB Channel</div>
+      </div>
+    </div>
+    <div class="right">
+      <div id="time">12:00</div>
+      <div id="date">2025-10-05</div>
+    </div>
+  </div>
+</body>
+</html>

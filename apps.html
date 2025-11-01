@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HDB Hotel - Apps</title>
+
+  <!-- ملفات CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/apps.css" />
+
+  <!-- ملفات JS -->
+  <script src="js/i18n.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/controls.js" defer></script>
+  <script src="js/music.js" defer></script>
+  <script src="js/offers.js" defer></script>
+ 
+  <script src="js/apps.js" defer></script>
+</head>
+<body data-page="apps">
+
+  <!-- ===== الهيدر ===== -->
+  <header class="header">
+    <div class="logo-circle">
+      <img src="assets/logo.png" alt="Hotel Logo" />
+    </div>
+    <div class="room-info">
+      <p><span data-lang="room">رقم الغرفة:</span> <span id="room-number"></span></p>
+      <p><span data-lang="time">الوقت:</span> <span id="time"></span></p>
+      <p><span data-lang="date">التاريخ:</span> <span id="date"></span></p>
+    </div>
+  </header>
+
+  <!-- ===== التطبيقات ===== -->
+  <main class="apps-container">
+
+      <a class="app-tile focusable" href="https://www.google.com" target="_blank" tabindex="0">
+        <div class="icon"><img src="assets/icons/chrome.png" alt="Chrome" /></div>
+        <div class="label" data-lang-ar="كروم" data-lang-en="Chrome">كروم</div>
+      </a>
+
+      <a class="app-tile focusable" href="https://open.spotify.com" target="_blank" tabindex="0">
+        <div class="icon"><img src="assets/icons/spotify.png" alt="Spotify" /></div>
+        <div class="label" data-lang-ar="سبوتيفاي" data-lang-en="Spotify">سبوتيفاي</div>
+      </a>
+
+      <a class="app-tile focusable" href="https://www.netflix.com" target="_blank" tabindex="0">
+        <div class="icon"><img src="assets/icons/netflix.png" alt="Netflix" /></div>
+        <div class="label" data-lang-ar="نتفليكس" data-lang-en="Netflix">نتفليكس</div>
+      </a>
+
+      <a class="app-tile focusable" href="https://www.youtube.com/tv" target="_blank" tabindex="0">
+        <div class="icon"><img src="assets/icons/youtube.png" alt="YouTube" /></div>
+        <div class="label" data-lang-ar="يوتيوب" data-lang-en="YouTube">يوتيوب</div>
+      </a>
+
+      <a class="app-tile focusable" href="https://www.google.com/maps" target="_blank" tabindex="0">
+        <div class="icon"><img src="assets/icons/maps.png" alt="Maps" /></div>
+        <div class="label" data-lang-ar="خرائط" data-lang-en="Maps">خرائط</div>
+      </a>
+
+    </div>
+  </main>
+
+</body>
+</html>

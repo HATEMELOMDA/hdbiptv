@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-page="menu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HDB Hotel — Menu</title>
+
+  <!-- ملفات مشتركة -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/i18n.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/controls.js" defer></script>
+  <script src="js/music.js" defer></script>
+  <script src="js/offers.js" defer></script>
+  
+
+  <!-- ملف خاص بالمنيو -->
+  <link rel="stylesheet" href="css/menu.css" />
+  <script src="js/menu.js" defer></script>
+</head>
+<body data-page="menu">
+  <!-- ====== الهيدر المشترك ====== -->
+<header class="header">
+  <div class="logo-circle">
+    <img src="assets/logo.png" alt="Hotel Logo">
+  </div>
+  <div class="room-info">
+    <p><span data-lang="room">رقم الغرفة:</span> <span id="room-number">1000</span></p>
+    <p><span data-lang="time">الوقت:</span> <span id="time"></span></p>
+    <p><span data-lang="date">التاريخ:</span> <span id="date"></span></p>
+  </div>
+</header>
+
+  <!-- الأيقونات -->
+  <div class="menu-container">
+    <div class="menu-item focusable" data-link="tv.html">
+      <img src="assets/icons/tv.png" alt="TV" />
+      <p data-lang="tv">التلفاز</p>
+    </div>
+
+    <div class="menu-item focusable" data-link="browser.html">
+      <img src="assets/icons/browser.png" alt="Browser" />
+      <p data-lang="browser">المتصفح</p>
+    </div>
+
+    <div class="menu-item focusable" data-link="apps.html">
+      <img src="assets/icons/apps.png" alt="Apps" />
+      <p data-lang="apps">التطبيقات</p>
+    </div>
+
+    <div class="menu-item focusable" data-link="settings.html">
+      <img src="assets/icons/settings.png" alt="Settings" />
+      <p data-lang="settings">الإعدادات</p>
+    </div>
+
+    <div class="menu-item focusable" data-link="info.html">
+      <img src="assets/icons/info.png" alt="Info" />
+      <p data-lang="info">معلومات</p>
+    </div>
+  </div>
+</body>
+</html>

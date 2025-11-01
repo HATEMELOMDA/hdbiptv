@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HDB Hotel - Settings</title>
+
+  <!-- ===== CSS مشترك ===== -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+
+  <!-- ===== CSS خاص ===== -->
+  <link rel="stylesheet" href="css/settings.css" />
+
+  <!-- ===== JS مشترك ===== -->
+  <script src="js/main.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/controls.js" defer></script>
+  <script src="js/music.js" defer></script>
+  <script src="js/offers.js" defer></script>
+  
+
+  <!-- ===== JS خاص ===== -->
+  <script src="js/settings.js" defer></script>
+</head>
+<body data-page="settings">
+  <!-- ===== الهيدر ===== -->
+  <header class="header">
+    <div class="logo-circle">
+      <img src="assets/logo.png" alt="HDB Logo"/>
+    </div>
+    <div class="room-info">
+      <p><span data-lang="room"></span>: <span id="room-number"></span></p>
+      <p><span data-lang="time"></span>: <span id="time"></span></p>
+      <p><span data-lang="date"></span>: <span id="date"></span></p>
+    </div>
+  </header>
+
+  <!-- ===== المحتوى ===== -->
+  <main class="settings-container">
+    <!-- اللغة -->
+    <section class="language-section">
+      <h2 data-lang="lang_label">اختيار اللغة</h2>
+      <div class="lang-fixed">
+        <button id="btn-en" class="focusable" data-lang-switch="en">English</button>
+        <button id="btn-ar" class="focusable" data-lang-switch="ar">العربية</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

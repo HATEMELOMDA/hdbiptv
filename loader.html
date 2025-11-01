@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- CSP احتياطية داخل الصفحة (بالإضافة إلى التي بالـ config) -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:;
+    connect-src * ws: wss:;
+    img-src * data: blob:;
+    media-src * data: blob:;
+    style-src * 'unsafe-inline' *;
+    script-src * 'unsafe-inline' 'unsafe-eval' *;">
+  <title>HDB Loader</title>
+  <style>
+    html,body{height:100%;margin:0;background:#000;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Cairo',sans-serif}
+    .wrap{height:100%;display:grid;place-items:center;text-align:center;padding:24px}
+    .box{max-width:720px}
+    .hint{opacity:.85;margin:.35rem 0}
+    .ip{font-weight:800;font-size:1.05rem}
+    button{margin-top:14px;padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:#1d1f22;color:#fff;font-weight:700}
+    .ok{color:#24e08a} .err{color:#ff6b6b}
+  </style>
+  <!-- باك-أب تحويل تلقائي -->
+  <meta id="metaRefresh" http-equiv="refresh" content="3;url=http://192.168.1.57/HDBIPTV/">
+</head>
+<body>
+  <div class="wrap">
+    <div class="box">
+      <h1>HDB IPTV</h1>
+      <div class="hint">جارٍ الفتح من الخادم الداخلي…</div>
+      <div class="ip">URL: <span id="u">http://192.168.1.57/HDBIPTV/</span></div>
+      <div id="status" class="hint">PING…</div>
+      <button id="retry">إعادة المحاولة</button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const TARGET = "http://192.168.1.57/HDBIPTV/";     // تأكد من الشرطية على الـ / في الآخر
+      const statusEl = document.getElementById('status');
+      const retryBtn = document.getElementById('retry');
+
+      // تسجيل مفاتيح الرجوع/خروج علشان نقدر نمنع الخروج قبل التحميل
+      try {
+        if (window.tizen && tizen.tvinputdevice) {
+          tizen.tvinputdevice.registerKey('Return');
+          tizen.tvinputdevice.registerKey('Exit');
+          tizen.tvinputdevice.registerKey('Tools');
+        }
+      } catch(_) {}
+
+      // حارس الرجوع: قبل التحميل ما يكمّل، رجوع = خروج نظيف، بعد التحميل مش هيفرق
+      document.addEventListener('keydown', (e)=>{
+        const key = e.keyCode || e.which;
+        if (key === 10009) { // Return
+          e.preventDefault(); e.stopPropagation();
+          try { tizen.application.getCurrentApplication().exit(); } catch(_) { window.close(); }
+        }
+        if (key === 10182) { // Exit
+          e.preventDefault(); e.stopPropagation();
+          try { tizen.application.getCurrentApplication().exit(); } catch(_) { window.close(); }
+        }
+      }, true);
+
+      function go(){
+        // 1) اختبار وصول خفيف بصورة (بدون CORS)
+        statusEl.textContent = 'PING…';
+        const img = new Image();
+        const timer = setTimeout(()=> fail('timeout'), 4000);
+        img.onload = ()=> { clearTimeout(timer); statusEl.innerHTML = '<span class="ok">OK</span> → فتح…'; hardNavigate(); };
+        img.onerror = ()=> { clearTimeout(timer); fail('img error'); };
+        img.src = TARGET + (TARGET.endsWith('/')?'':'/') + 'assets/ping.png?x=' + Date.now();
+        // لو ما عندك ping.png ما يهم — مجرد محاولة؛ لو فشلت هنجرب برضه الفتح.
+        setTimeout(hardNavigate, 800); // ما نستنى كتير
+      }
+
+      function hardNavigate(){
+        // 2) أقوى تحويل: استبدال التاريخ لمنع الرجوع للودر
+        try { window.location.replace(TARGET); } catch(_) {}
+        // 3) باك-أب ثاني
+        setTimeout(()=> { window.location.href = TARGET; }, 800);
+      }
+
+      function fail(reason){
+        statusEl.innerHTML = '<span class="err">فشل الاتصال</span> ('+reason+') — تأكد من أن التلفزيون على نفس VLAN، وجدار ويندوز يسمح بالمنفذ 80.';
+      }
+
+      retryBtn.addEventListener('click', go);
+
+      // بدء التحميل فوراً
+      go();
+    })();
+  </script>
+</body>
+</html>

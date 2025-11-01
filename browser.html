@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HDB Hotel — Browser</title>
+
+  <!-- ملفات مشتركة -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/i18n.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/controls.js" defer></script>
+  <script src="js/offers.js" defer></script>
+
+  <!-- خاص بالصفحة -->
+  <link rel="stylesheet" href="css/browser.css" />
+  <script src="js/browser.js" defer></script>
+</head>
+<body data-page="browser">
+
+  <!-- ===== الهيدر ===== -->
+  <header class="header browser-header">
+    <div class="logo-circle shared-logo">
+      <img src="assets/logo.png" alt="HDB Logo">
+    </div>
+
+    <div class="search-bar">
+      <input id="search-input" type="text" class="focusable" 
+             placeholder="ابحث في Google" data-i18n-placeholder="search_placeholder">
+    </div>
+  </header>
+
+  <!-- ===== لوحة المفاتيح ===== -->
+  <div id="kbd-panel" class="kbd-panel" data-nav-scope="kbd">
+    <div id="kbd-rows"></div>
+  </div>
+
+</body>
+</html>

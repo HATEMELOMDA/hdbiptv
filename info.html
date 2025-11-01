@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-page="info">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HDB Hotel — Info</title>
+
+  <!-- مشترك -->
+  <link rel="stylesheet" href="css/styles.css" />
+   <script src="js/i18n.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/controls.js" defer></script>
+  <script src="js/music.js" defer></script>
+  
+  <script src="js/offers.js" defer></script>
+  <!-- خاص الصفحة -->
+  <link rel="stylesheet" href="css/info.css" />
+  <script src="js/info.js" defer></script>
+</head>
+<body>
+  <!-- الهيدر (لا تعديل على منطق اللوجو/الوقت/التاريخ/رقم الغرفة) -->
+  <header class="header">
+    <div class="logo-circle">
+      <img id="hotel-logo" src="assets/logo.png" alt="Hotel Logo">
+    </div>
+    <div class="room-info">
+      <p>
+        <span data-lang="room">رقم الغرفة:</span>
+        <span id="room-number">000</span>
+      </p>
+      <p><span data-lang="time">الوقت:</span> <span id="time"></span></p>
+      <p><span data-lang="date">التاريخ:</span> <span id="date"></span></p>
+    </div>
+  </header>
+
+  <!-- شريط أزرار التعديل (في الوسط جنب بعض) -->
+  <section class="edit-toolbar" aria-label="edit toolbar">
+    <button id="btn-edit-room" class="edit-pill focusable" aria-label="Edit Room">
+      <span class="ico">🏷️</span>
+      <span class="lbl" data-i18n-room>تعديل الغرفة</span>
+    </button>
+    <button id="btn-edit-wifi" class="edit-pill focusable" aria-label="Edit Wi-Fi">
+      <span class="ico">📶</span>
+      <span class="lbl" data-i18n-wifi>تعديل الواي فاي</span>
+    </button>
+  </section>
+
+  <h1 class="page-title" data-lang=""></h1>
+
+  <!-- بيانات الفندق -->
+  <section class="info-container">
+    <div class="info-card">
+      <div class="icon"><img src="assets/icons/mobile.png" alt=""></div>
+      <p data-lang="mobile">رقم الجوال</p>
+      <p id="mobile">—</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon"><img src="assets/icons/reception.png" alt=""></div>
+      <p data-lang="reception">الاستقبال</p>
+      <p id="reception">—</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon"><img src="assets/icons/checkin.png" alt=""></div>
+      <p data-lang="checkin">الشيك إن</p>
+      <p id="checkIn">—</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon"><img src="assets/icons/checkout.png" alt=""></div>
+      <p data-lang="checkout">الشيك أوت</p>
+      <p id="checkOut">—</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon"><img src="assets/icons/restaurant.png" alt=""></div>
+      <p data-lang="restaurant">المطعم</p>
+      <p id="restaurant">—</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon"><img src="assets/icons/breakfast.png" alt=""></div>
+      <p data-lang="breakfast">الإفطار</p>
+      <p id="breakfast">—</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon"><img src="assets/icons/wifi.png" alt=""></div>
+      <p>Wi-Fi</p>
+      <p id="wifi">—</p>
+    </div>
+
+    <div class="info-card">
+      <div class="icon"><img src="assets/icons/password.png" alt=""></div>
+      <p data-lang="wifi_password">كلمة المرور</p>
+      <p id="wifiPass">—</p>
+    </div>
+  </section>
+
+  <!-- الملاحظات من JSON فقط -->
+  <section class="note-section">
+    <textarea id="note" readonly aria-label="note"></textarea>
+  </section>
+
+  <!-- مودال تعديل رقم الغرفة (بـ data-nav-scope لعزل التنقل) -->
+  <dialog id="room-modal" class="room-modal" data-nav-scope>
+    <h2 data-i18n-title-room>تعديل رقم الغرفة</h2>
+
+    <div class="field">
+      <label for="admin-pass" data-i18n-pass>كلمة المرور:</label>
+      <input type="password" id="admin-pass" class="focusable" readonly />
+      <small id="msg-pass" class="msg"></small>
+    </div>
+
+    <div class="field">
+      <label for="new-room" data-i18n-newroom>الرقم الجديد:</label>
+      <input type="text" id="new-room" class="focusable" inputmode="numeric" readonly />
+      <small id="msg-room" class="msg"></small>
+    </div>
+
+    <!-- لوح الأرقام (يُبنى ديناميكياً، ويتضمن OK / SAVE / CANCEL) -->
+    <div id="numpad" class="numpad"></div>
+  </dialog>
+
+  <!-- مودال الواي فاي (كيبورد iOS-style) -->
+  <dialog id="wifi-modal" class="wifi-modal" data-nav-scope>
+    <h2 data-i18n-title-wifi>تعديل الواي فاي</h2>
+
+    <div class="field">
+      <label for="wifi-ssid" data-i18n-ssid>اسم الشبكة</label>
+      <input type="text" id="wifi-ssid" class="focusable" autocomplete="off" readonly />
+      <small id="msg-ssid" class="msg"></small>
+    </div>
+
+    <div class="field">
+      <label for="wifi-pass" data-i18n-wifipass>كلمة المرور للواي فاي</label>
+      <input type="password" id="wifi-pass" class="focusable" autocomplete="off" readonly />
+      <small id="msg-wifipass" class="msg"></small>
+    </div>
+
+    <!-- كيبورد (يبنى ديناميكياً) — ملاحظة: استخدمنا vk-panel لتجنب فلترة controls القديمة -->
+    <div id="wifi-keyboard" class="vk-panel"></div>
+  </dialog>
+</body>
+</html>
