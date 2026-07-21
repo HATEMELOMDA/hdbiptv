@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HDB Hospitality — Secure Casting</title>
+  <link rel="stylesheet" href="css/hdb-global.css"><link rel="stylesheet" href="css/hdb-extensions.css">
+  <script src="js/hdb-global.js" defer></script><script src="js/hdb-guest-api.js" defer></script>
+</head>
+<body>
+  <div class="guest-feature-page">
+    <header class="feature-header">
+      <div class="hdb-brand"><div class="hdb-logo"><img src="assets/logo.png" alt="HDB"></div><div class="heading"><h1>عرض هاتفك على التلفزيون</h1><p>اقتران آمن ومخصص لغرفتك فقط</p></div></div>
+      <button class="back-button focusable" onclick="location.href='menu.html'">العودة للقائمة</button>
+    </header>
+    <main class="feature-card casting-hero">
+      <div class="casting-icon">▱</div>
+      <h2>Secure Guest Casting</h2>
+      <p>اضغط بدء الاقتران ثم افتح تطبيق الفندق أو بوابة الاقتران على هاتفك. تنتهي الجلسة تلقائيًا عند تسجيل المغادرة ولا يمكن لأي غرفة أخرى الوصول إليها.</p>
+      <button id="start-casting" class="primary-action focusable" style="width:auto;padding:0 34px">بدء الاقتران</button>
+      <div id="casting-ready" class="casting-ready"><span>رمز الاقتران المؤقت</span><strong id="casting-code">000000</strong><small>صالح لمدة 5 دقائق</small></div>
+    </main>
+  </div>
+</body>
+</html>
