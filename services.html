@@ -2,26 +2,27 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HDB Hospitality — Services</title>
-  <link rel="stylesheet" href="css/hdb-global.css"><script src="js/hdb-global.js" defer></script><script src="js/hdb-services.js" defer></script>
+  <title>HDB Global Hospitality — Services</title>
+  <link rel="stylesheet" href="css/hdb-global.css">
+  <script src="js/hdb-global.js" defer></script><script src="js/hdb-guest-api.js" defer></script><script src="js/hdb-services.js" defer></script>
 </head>
 <body>
   <div class="services-page">
     <header class="services-header">
-      <div class="hdb-brand"><div class="hdb-logo"><img src="assets/logo.png" alt="HDB"></div><div class="guest-greeting"><h1>خدمات الغرفة</h1><p>اطلب ما تحتاجه وسيتابع فريق الفندق طلبك</p></div></div>
+      <div class="hdb-brand"><div class="hdb-logo"><img src="assets/logo.png" alt="HDB"></div><div class="guest-greeting"><h1>خدمات الغرفة</h1><p>اطلب ما تحتاجه وسيتابع فريق الفندق طلبك من لوحة التشغيل</p></div></div>
       <button class="back-button focusable" onclick="location.href='menu.html'">العودة للقائمة</button>
     </header>
     <main class="services-content">
       <section class="catalog">
-        <article class="catalog-card focusable" tabindex="0" data-request="تنظيف الغرفة" data-eta="20-30 دقيقة"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M5 20h14M7 20l2-9h6l2 9M10 11V5h4v6M9 5h6"/></svg></div><strong>تنظيف الغرفة</strong><span>طلب فريق النظافة في الوقت المناسب لك</span></article>
-        <article class="catalog-card focusable" tabindex="0" data-request="مستلزمات إضافية" data-eta="10-15 دقيقة"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 7h6M9 11h6M9 15h4"/></svg></div><strong>مستلزمات إضافية</strong><span>مناشف، مياه، أدوات عناية ومستلزمات الغرفة</span></article>
-        <article class="catalog-card focusable" tabindex="0" data-request="طلب صيانة" data-eta="15-25 دقيقة"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M14 6a4 4 0 0 0-5 5L3 17l4 4 6-6a4 4 0 0 0 5-5l-3 3-4-4z"/></svg></div><strong>طلب صيانة</strong><span>كهرباء، تكييف، سباكة أو أي ملاحظة فنية</span></article>
-        <article class="catalog-card focusable" tabindex="0" data-request="حمل الأمتعة" data-eta="5-10 دقائق"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M7 8h10v13H7zM9 8V5a3 3 0 0 1 6 0v3M5 12h2M17 12h2"/></svg></div><strong>حمل الأمتعة</strong><span>المساعدة في استلام أو نقل الأمتعة</span></article>
-        <article class="catalog-card focusable" tabindex="0" data-request="خدمة إيقاظ" data-eta="في الموعد المحدد"><div class="tile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2M5 3 2 6M19 3l3 3"/></svg></div><strong>خدمة الإيقاظ</strong><span>حدد الوقت المناسب وسيتم التواصل معك</span></article>
-        <article class="catalog-card focusable" tabindex="0" data-request="التواصل مع الاستقبال" data-eta="فوري"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 8h6M9 12h6M9 16h3"/></svg></div><strong>الاستقبال</strong><span>تواصل سريع مع فريق الاستقبال</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-request="تنظيف الغرفة" data-department="Housekeeping" data-eta="20-30 دقيقة"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M5 20h14M7 20l2-9h6l2 9M10 11V5h4v6M9 5h6"/></svg></div><strong>تنظيف الغرفة</strong><span>طلب فريق النظافة في الوقت المناسب لك</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-request="مستلزمات إضافية" data-department="Housekeeping" data-eta="10-15 دقيقة"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 7h6M9 11h6M9 15h4"/></svg></div><strong>مستلزمات إضافية</strong><span>مناشف، مياه، أدوات عناية ومستلزمات الغرفة</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-request="طلب صيانة" data-department="Engineering" data-eta="15-25 دقيقة"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M14 6a4 4 0 0 0-5 5L3 17l4 4 6-6a4 4 0 0 0 5-5l-3 3-4-4z"/></svg></div><strong>طلب صيانة</strong><span>كهرباء، تكييف، سباكة أو أي ملاحظة فنية</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-request="حمل الأمتعة" data-department="Bell Desk" data-eta="5-10 دقائق"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M7 8h10v13H7zM9 8V5a3 3 0 0 1 6 0v3M5 12h2M17 12h2"/></svg></div><strong>حمل الأمتعة</strong><span>المساعدة في استلام أو نقل الأمتعة</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-request="خدمة إيقاظ" data-department="Front Office" data-eta="في الموعد المحدد"><div class="tile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2M5 3 2 6M19 3l3 3"/></svg></div><strong>خدمة الإيقاظ</strong><span>حدد الوقت المناسب وسيتم التواصل معك</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-request="التواصل مع الاستقبال" data-department="Front Office" data-eta="فوري"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M6 4h12v16H6zM9 8h6M9 12h6M9 16h3"/></svg></div><strong>الاستقبال</strong><span>تواصل سريع مع فريق الاستقبال</span></article>
       </section>
       <aside class="request-panel">
-        <div><small class="eyebrow">YOUR REQUESTS</small><h2>طلبات الغرفة <span id="service-room">1208</span></h2><p>اختر إحدى الخدمات وسيظهر الطلب هنا مع حالة التنفيذ والوقت المتوقع.</p><div class="request-list" id="request-list"><div class="request-item"><span>لا توجد طلبات نشطة</span><strong>جاهز</strong></div></div></div>
+        <div><small class="eyebrow">LIVE SERVICE REQUESTS</small><h2>طلبات الغرفة <span id="service-room">1201</span></h2><p>اختر إحدى الخدمات وسيُرسل الطلب إلى القسم المختص مع حالة التنفيذ والوقت المتوقع.</p><div class="request-list" id="request-list"><div class="request-item"><span>لا توجد طلبات نشطة</span><strong>جاهز</strong></div></div></div>
         <button id="send-request" class="primary-action focusable" disabled>إرسال الطلب</button>
       </aside>
     </main>
