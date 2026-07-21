@@ -10,11 +10,25 @@ const entityFields={
   requests:[['status','الحالة','select',{'new':'جديد','in_progress':'قيد التنفيذ','completed':'مكتمل','cancelled':'ملغي'}],['note','ملاحظة','textarea']]
 };
 
+function buildApiUrl(action){
+  const [route,...parts]=String(action).split('&');
+  const url=new URL(API,window.location.href);
+  url.searchParams.set('action',route);
+  parts.forEach(part=>{
+    const separator=part.indexOf('=');
+    if(separator<0)return;
+    const key=part.slice(0,separator);
+    const value=part.slice(separator+1);
+    url.searchParams.set(key,decodeURIComponent(value));
+  });
+  return url.toString();
+}
+
 async function api(action,{method='GET',body=null,auth=true}={}){
   const options={method,headers:{'Accept':'application/json'}};
   if(body!==null){options.headers['Content-Type']='application/json';options.body=JSON.stringify(body)}
   if(auth&&method!=='GET'&&state.csrf)options.headers['X-HDB-CSRF']=state.csrf;
-  const response=await fetch(`${API}?action=${encodeURIComponent(action)}`,options);
+  const response=await fetch(buildApiUrl(action),options);
   const data=await response.json().catch(()=>({ok:false,error:'استجابة غير صالحة من الخادم'}));
   if(response.status===401&&action!=='login'){showLogin();throw new Error('انتهت الجلسة')}
   if(!response.ok||!data.ok)throw new Error(data.error||'تعذر تنفيذ العملية');
@@ -37,7 +51,12 @@ async function bootstrap(){
 }
 
 function bindStaticEvents(){
-  document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();try{const data=await api('login',{method:'POST',body:{username:loginUser.value.trim(),password:loginPass.value},auth:false});state.user=data.user;state.csrf=data.csrf;showApp();await navigate('dashboard');toast('تم تسجيل الدخول')}catch(err){toast(err.message,'error')}});
+  document.getElementById('loginForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const username=document.getElementById('loginUser').value.trim();
+    const password=document.getElementById('loginPass').value;
+    try{const data=await api('login',{method:'POST',body:{username,password},auth:false});state.user=data.user;state.csrf=data.csrf;showApp();await navigate('dashboard');toast('تم تسجيل الدخول')}catch(err){toast(err.message,'error')}
+  });
   document.getElementById('logoutBtn').addEventListener('click',async()=>{try{await api('logout',{method:'POST'});}catch{}state.user=null;state.csrf='';showLogin()});
   document.querySelectorAll('.nav-item').forEach(btn=>btn.addEventListener('click',()=>navigate(btn.dataset.view)));
   document.querySelectorAll('[data-jump]').forEach(btn=>btn.addEventListener('click',()=>navigate(btn.dataset.jump)));
@@ -103,7 +122,7 @@ function renderRooms(items){
 function renderDevices(items){const rows=items.map(d=>`<tr><td><strong>${escapeHtml(d.code)}</strong></td><td>${escapeHtml(d.room_id||'-')}</td><td>${escapeHtml(d.brand)}</td><td>${escapeHtml(d.model)}</td><td>${escapeHtml(d.ip||'-')}</td><td>${statusPill(d.status)}</td><td>${formatDate(d.last_seen)}</td><td>${actions('devices',d.id)}</td></tr>`);document.getElementById('devicesTable').innerHTML=table(['كود الجهاز','الغرفة','الماركة','الموديل','IP','الحالة','آخر اتصال','الإجراءات'],rows);document.getElementById('devicesCount').textContent=`${items.length} جهاز`}
 function renderChannels(items){items=[...items].sort((a,b)=>Number(a.sort||a.number)-Number(b.sort||b.number));const rows=items.map(c=>`<tr><td><strong>${escapeHtml(c.number)}</strong></td><td>${escapeHtml(c.name_ar)}</td><td>${escapeHtml(c.name_en)}</td><td>${escapeHtml(c.group)}</td><td>${escapeHtml(c.package)}</td><td>${statusPill(c.status)}</td><td><span class="muted">${escapeHtml(c.source||'لم يحدد')}</span></td><td>${actions('channels',c.id)}</td></tr>`);document.getElementById('channelsTable').innerHTML=table(['#','الاسم العربي','الاسم الإنجليزي','المجموعة','الباقة','الحالة','المصدر','الإجراءات'],rows);document.getElementById('channelsCount').textContent=`${items.length} قناة`}
 function renderMessages(items){const rows=items.map(m=>`<tr><td><strong>${escapeHtml(m.title_ar)}</strong><div class="muted">${escapeHtml(m.title_en)}</div></td><td>${escapeHtml(m.scope)}</td><td>${escapeHtml(m.scope_id||'الكل')}</td><td>${statusPill(m.active?'active':'inactive')}</td><td>${formatDate(m.starts_at)}</td><td>${actions('messages',m.id)}</td></tr>`);document.getElementById('messagesTable').innerHTML=table(['العنوان','النطاق','الهدف','الحالة','تاريخ البدء','الإجراءات'],rows)}
-function renderServices(items){const rows=items.sort((a,b)=>Number(a.sort)-Number(b.sort)).map(s=>`<tr><td><strong>${escapeHtml(s.name_ar)}</strong><div class="muted">${escapeHtml(s.name_en)}</div></td><td>${escapeHtml(s.category)}</td><td>${escapeHtml(s.icon)}</td><td>${escapeHtml(s.sort)}</td><td>${statusPill(s.active?'active':'inactive')}</td><td>${actions('services',s.id)}</td></tr>`);document.getElementById('servicesTable').innerHTML=table(['الخدمة','التصنيف','الأيقونة','الترتيب','الحالة','الإجراءات'],rows)}
+function renderServices(items){const rows=[...items].sort((a,b)=>Number(a.sort)-Number(b.sort)).map(s=>`<tr><td><strong>${escapeHtml(s.name_ar)}</strong><div class="muted">${escapeHtml(s.name_en)}</div></td><td>${escapeHtml(s.category)}</td><td>${escapeHtml(s.icon)}</td><td>${escapeHtml(s.sort)}</td><td>${statusPill(s.active?'active':'inactive')}</td><td>${actions('services',s.id)}</td></tr>`);document.getElementById('servicesTable').innerHTML=table(['الخدمة','التصنيف','الأيقونة','الترتيب','الحالة','الإجراءات'],rows)}
 function renderRequests(items){const rows=items.map(r=>`<tr><td><strong>${escapeHtml(r.room_number)}</strong></td><td>${escapeHtml(r.service_name_ar||r.service_id)}</td><td>${escapeHtml(r.note||'-')}</td><td>${statusPill(r.status)}</td><td>${formatDate(r.created_at)}</td><td><button class="btn ghost" data-edit="requests" data-id="${escapeHtml(r.id)}">تحديث الحالة</button></td></tr>`);document.getElementById('requestsTable').innerHTML=table(['الغرفة','الخدمة','الملاحظة','الحالة','الوقت','الإجراء'],rows)}
 function renderAudit(items){const rows=items.map(a=>`<tr><td>${formatDate(a.created_at)}</td><td>${escapeHtml(a.user)}</td><td>${escapeHtml(a.action)}</td><td>${escapeHtml(a.entity)}</td><td>${escapeHtml(a.entity_id||'-')}</td></tr>`);document.getElementById('auditTable').innerHTML=table(['الوقت','المستخدم','العملية','القسم','المعرف'],rows)}
 
@@ -119,7 +138,7 @@ async function handleDelegatedClick(event){
   const edit=event.target.closest('[data-edit]');if(edit){const entity=edit.dataset.edit;const item=(state.cache[entity]||[]).find(x=>x.id===edit.dataset.id);openEntityModal(entity,item);return}
   const del=event.target.closest('[data-delete]');if(del){if(!confirm('تأكيد حذف العنصر؟'))return;try{await api('delete',{method:'POST',body:{entity:del.dataset.delete,id:del.dataset.id}});toast('تم الحذف');await loadEntity(del.dataset.delete)}catch(err){toast(err.message,'error')}return}
   const checkin=event.target.closest('[data-checkin]');if(checkin){openCheckin(checkin.dataset.checkin);return}
-  const checkout=event.target.closest('[data-checkout]');if(checkout){if(!confirm('تأكيد مغادرة النزيل وتنظيف بيانات الشاشة؟'))return;try{await api('checkout',{method:'POST',body:{room_id:checkout.dataset.checkout}});toast('تمت المغادرة وتنظيف بيانات النزيل');await loadEntity('rooms')}catch(err){toast(err.message,'error')}}
+  const checkout=event.target.closest('[data-checkout]');if(checkout){if(!confirm('تأكيد مغادرة النزيل وتنظيف بيانات الشاشة؟'))return;try{await api('checkout',{method:'POST',body:{room_id:checkout.dataset.checkout}});toast('تمت المغادرة وتنظيف بيانات النزيل');await loadEntity('rooms')}catch(err){toast(err.message,'error')}return}
 }
 
 async function loadSettings(){const data=await api('settings');state.settings=data;const form=document.getElementById('settingsForm');for(const [k,v] of Object.entries({...data.meta,...data.theme})){if(form.elements[k]){if(form.elements[k].type==='checkbox')form.elements[k].checked=!!v;else form.elements[k].value=v??''}}}
