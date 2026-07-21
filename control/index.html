@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>HDB Hospitality Control</title>
-  <link rel="stylesheet" href="control.css"><script src="control.js" defer></script>
+  <link rel="stylesheet" href="control.css">
+  <script src="api-client.js" defer></script>
+  <script src="enterprise.js" defer></script>
+  <script src="control.js" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -19,11 +22,20 @@
         <button class="nav-item" data-view="experience"><span>✦</span>تجربة النزيل</button>
         <button class="nav-item" data-view="system"><span>⚙</span>حالة النظام</button>
       </nav>
-      <div class="sidebar-foot"><span class="online-dot"></span><div><strong>النظام متصل</strong><small>HDB Core 1.1</small></div></div>
+      <div class="sidebar-foot"><span class="online-dot"></span><div><strong>النظام متصل</strong><small>HDB Core 2.0 Enterprise</small></div></div>
     </aside>
 
     <main class="workspace">
-      <header class="topbar"><div><small id="view-kicker">OVERVIEW</small><h1 id="view-title">مركز القيادة</h1></div><div class="top-actions"><button id="refresh-btn" class="btn ghost">تحديث</button><button id="primary-btn" class="btn primary">إضافة غرفة</button></div></header>
+      <header class="topbar">
+        <div><small id="view-kicker">OVERVIEW</small><h1 id="view-title">مركز القيادة</h1></div>
+        <div class="top-actions">
+          <span id="sync-status" class="sync-status working">جاري التحقق…</span>
+          <div class="user-pill"><div class="user-avatar">H</div><div><strong id="current-user-name">مستخدم النظام</strong><small id="current-user-role">operator</small></div></div>
+          <button id="refresh-btn" class="btn ghost">تحديث</button>
+          <button id="primary-btn" class="btn primary">إضافة غرفة</button>
+          <button id="logout-btn" class="btn danger">خروج</button>
+        </div>
+      </header>
 
       <section class="view active" id="view-dashboard">
         <div class="metrics" id="metrics"></div>
