@@ -1,0 +1,3 @@
+HDBIPTV Global Hospitality V2
+Build channel: global-foundation
+Guest UX, control center, API V2, services, billing, checkout and casting foundation.
