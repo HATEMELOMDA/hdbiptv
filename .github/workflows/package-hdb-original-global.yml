@@ -38,22 +38,24 @@ jobs:
           test -f messages.html
           test -f control/index.html
           test -f api/index.php
+          test -f css/hdb-global.css
+          test -f js/hdb-global.js
 
       - name: Build ZIP
         run: |
-          mkdir -p dist/HDBIPTV_HOSPITALITY_1.1_ALPHA
-          rsync -a ./ dist/HDBIPTV_HOSPITALITY_1.1_ALPHA/ \
+          mkdir -p dist/HDBIPTV_HOSPITALITY_1.2_GUEST_UX
+          rsync -a ./ dist/HDBIPTV_HOSPITALITY_1.2_GUEST_UX/ \
             --exclude '.git' \
             --exclude '.github' \
             --exclude 'dist' \
             --exclude 'platform-alpha1'
           cd dist
-          zip -r HDBIPTV_HOSPITALITY_1.1_ALPHA.zip HDBIPTV_HOSPITALITY_1.1_ALPHA
+          zip -r HDBIPTV_HOSPITALITY_1.2_GUEST_UX.zip HDBIPTV_HOSPITALITY_1.2_GUEST_UX
 
       - name: Upload ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: HDBIPTV_HOSPITALITY_1.1_ALPHA
-          path: dist/HDBIPTV_HOSPITALITY_1.1_ALPHA.zip
+          name: HDBIPTV_HOSPITALITY_1.2_GUEST_UX
+          path: dist/HDBIPTV_HOSPITALITY_1.2_GUEST_UX.zip
           if-no-files-found: error
           retention-days: 90
