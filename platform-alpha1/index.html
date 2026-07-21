@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07101d">
+  <title>HDB Hospitality OS — مركز القيادة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">H</div>
+        <div>
+          <strong>HDB Hospitality</strong>
+          <span>Hotel Television OS</span>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="القائمة الرئيسية">
+        <p class="nav-label">المتابعة</p>
+        <button class="nav-item active" data-view="command"><span>◫</span><b>مركز القيادة</b></button>
+        <button class="nav-item" data-view="alerts"><span>!</span><b>التنبيهات</b><em>3</em></button>
+
+        <p class="nav-label">تشغيل الفندق</p>
+        <button class="nav-item" data-view="rooms"><span>▦</span><b>الغرف والإقامات</b></button>
+        <button class="nav-item" data-view="devices"><span>▣</span><b>التلفزيونات</b></button>
+        <button class="nav-item" data-view="channels"><span>▶</span><b>القنوات والبث</b></button>
+        <button class="nav-item" data-view="requests"><span>◇</span><b>طلبات النزلاء</b></button>
+
+        <p class="nav-label">التجربة والمحتوى</p>
+        <button class="nav-item" data-view="experience"><span>✦</span><b>تجربة النزيل</b></button>
+        <button class="nav-item" data-view="content"><span>▤</span><b>الخدمات والمحتوى</b></button>
+        <button class="nav-item" data-view="messages"><span>✉</span><b>الرسائل</b></button>
+
+        <p class="nav-label">النظام</p>
+        <button class="nav-item" data-view="integrations"><span>⌁</span><b>التكاملات</b></button>
+        <button class="nav-item" data-view="reports"><span>◒</span><b>التقارير</b></button>
+        <button class="nav-item" data-view="settings"><span>⚙</span><b>الإعدادات</b></button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="system-dot"><i></i><span>النظام يعمل بصورة طبيعية</span></div>
+        <small>Alpha 1 · Build 2026.07</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-start">
+          <button class="icon-btn mobile-only" id="menuToggle" aria-label="فتح القائمة">☰</button>
+          <div>
+            <p class="eyebrow">HDB Tuwaiq Tower</p>
+            <h1 id="pageTitle">مركز القيادة</h1>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="live-time">
+            <span id="clock">--:--</span>
+            <small id="today">--</small>
+          </div>
+          <button class="icon-btn" id="refreshBtn" title="تحديث البيانات">↻</button>
+          <button class="primary-btn" id="quickAction">＋ إجراء سريع</button>
+          <div class="user-chip">
+            <div class="avatar">ح</div>
+            <div><strong>حاتم</strong><span>مدير النظام</span></div>
+          </div>
+        </div>
+      </header>
+
+      <section class="view active" id="view-command">
+        <div class="hero-panel">
+          <div>
+            <span class="status-badge"><i></i> جميع الأنظمة الأساسية متصلة</span>
+            <h2>صباح الخير، كل شيء تحت السيطرة.</h2>
+            <p>متابعة الغرف والتلفزيونات والقنوات وطلبات النزلاء من شاشة واحدة.</p>
+          </div>
+          <div class="hero-actions">
+            <button class="ghost-btn" data-open="preview">معاينة شاشة النزيل</button>
+            <button class="primary-btn" data-open="checkin">تسكين نزيل</button>
+          </div>
+        </div>
+
+        <div class="metric-grid" id="metricGrid"></div>
+
+        <div class="dashboard-grid">
+          <article class="panel span-8">
+            <div class="panel-head">
+              <div><span class="kicker">التشغيل المباشر</span><h3>حالة الفندق</h3></div>
+              <div class="segmented" id="floorFilter">
+                <button class="active" data-floor="all">الكل</button>
+                <button data-floor="17">الدور 17</button>
+                <button data-floor="18">الدور 18</button>
+                <button data-floor="19">الدور 19</button>
+              </div>
+            </div>
+            <div class="occupancy-strip">
+              <div><span>الإشغال</span><strong id="occupancyValue">0%</strong></div>
+              <div class="progress"><i id="occupancyBar"></i></div>
+              <small id="occupancyText">—</small>
+            </div>
+            <div class="room-map" id="roomMap"></div>
+          </article>
+
+          <article class="panel span-4">
+            <div class="panel-head">
+              <div><span class="kicker">آخر 24 ساعة</span><h3>صحة النظام</h3></div>
+              <button class="text-btn">عرض الكل</button>
+            </div>
+            <div class="health-list" id="healthList"></div>
+          </article>
+
+          <article class="panel span-7">
+            <div class="panel-head">
+              <div><span class="kicker">الخدمة</span><h3>طلبات النزلاء</h3></div>
+              <button class="text-btn" data-view-target="requests">فتح مركز الطلبات</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>الطلب</th><th>الغرفة</th><th>منذ</th><th>الحالة</th></tr></thead>
+                <tbody id="requestRows"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="panel span-5">
+            <div class="panel-head">
+              <div><span class="kicker">البث</span><h3>مراقبة القنوات</h3></div>
+              <span class="live-pill">LIVE</span>
+            </div>
+            <div class="channel-monitor" id="channelMonitor"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-rooms">
+        <div class="section-toolbar">
+          <div class="search"><span>⌕</span><input id="roomSearch" placeholder="ابحث برقم الغرفة أو اسم النزيل"></div>
+          <select id="roomStatus"><option value="all">كل الحالات</option><option value="occupied">مشغولة</option><option value="vacant">شاغرة</option><option value="cleaning">تحت التجهيز</option></select>
+          <button class="primary-btn" data-open="checkin">＋ تسكين جديد</button>
+        </div>
+        <article class="panel">
+          <div class="panel-head"><div><span class="kicker">تشغيل الفندق</span><h3>الغرف والإقامات</h3></div><small id="roomsCount"></small></div>
+          <div class="table-wrap wide">
+            <table>
+              <thead><tr><th>الغرفة</th><th>الدور</th><th>النزيل</th><th>الإقامة</th><th>التلفزيون</th><th>الحالة</th><th></th></tr></thead>
+              <tbody id="roomsTable"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="view" id="view-devices">
+        <div class="empty-view">
+          <div class="empty-icon">▣</div><span>التلفزيونات والأجهزة</span>
+          <h2>مراقبة وربط كل شاشة بالغرفة الصحيحة.</h2>
+          <p>تم تجهيز هيكل الصفحة، وسيُربط في Alpha 2 مع تسجيل الأجهزة والأوامر الجماعية.</p>
+          <button class="primary-btn">تسجيل تلفزيون</button>
+        </div>
+      </section>
+
+      <section class="view" id="view-channels">
+        <div class="empty-view">
+          <div class="empty-icon">▶</div><span>القنوات والبث</span>
+          <h2>إدارة القنوات والمصادر والباقات من مكان واحد.</h2>
+          <p>ستشمل النسخة التالية الفحص المباشر، المصدر الاحتياطي، EPG والترتيب بالسحب.</p>
+          <button class="primary-btn">إضافة قناة</button>
+        </div>
+      </section>
+
+      <section class="view" id="view-requests">
+        <div class="empty-view">
+          <div class="empty-icon">◇</div><span>طلبات النزلاء</span>
+          <h2>استقبال الطلب، تعيينه، متابعته وإغلاقه.</h2>
+          <p>واجهة التشغيل جاهزة للربط مع خدمة الغرف والصيانة والاستقبال.</p>
+          <button class="primary-btn">إنشاء طلب</button>
+        </div>
+      </section>
+
+      <section class="view" id="view-experience">
+        <div class="experience-layout">
+          <article class="panel editor-panel">
+            <div class="panel-head"><div><span class="kicker">محرر التجربة</span><h3>شاشة الترحيب</h3></div><span class="draft-pill">مسودة غير منشورة</span></div>
+            <label>العنوان العربي<input id="welcomeAr" value="مرحبًا بك في فندق هدب"></label>
+            <label>العنوان الإنجليزي<input id="welcomeEn" value="Welcome to HDB Hotel"></label>
+            <label>النص المختصر<textarea id="welcomeText">نتمنى لك إقامة مريحة وتجربة لا تُنسى.</textarea></label>
+            <div class="form-row"><label>اللون الرئيسي<input type="color" id="accentColor" value="#c6a76b"></label><label>نمط الخلفية<select id="backgroundMode"><option value="city">مدينة ليلية</option><option value="gradient">تدرج هادئ</option><option value="image">صورة الفندق</option></select></label></div>
+            <div class="editor-actions"><button class="ghost-btn">حفظ مسودة</button><button class="primary-btn" id="publishBtn">نشر التجربة</button></div>
+          </article>
+          <article class="tv-preview-wrap">
+            <div class="tv-frame">
+              <div class="tv-screen" id="tvScreen">
+                <div class="preview-top"><div class="preview-logo">HDB</div><div><strong>الغرفة 1704</strong><span>07:45 · الرياض</span></div></div>
+                <div class="preview-copy"><small>HDB TUWAIQ TOWER</small><h2 id="previewWelcome">مرحبًا بك في فندق هدب</h2><p id="previewText">نتمنى لك إقامة مريحة وتجربة لا تُنسى.</p></div>
+                <div class="preview-menu"><div class="selected">▶<span>التلفزيون</span></div><div>◇<span>خدمات الفندق</span></div><div>▤<span>المطاعم</span></div><div>✉<span>الرسائل</span></div></div>
+              </div>
+            </div>
+            <div class="preview-meta"><span><i class="online"></i> معاينة مباشرة</span><small>Samsung Tizen · 1920×1080</small></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-alerts"><div class="empty-view"><div class="empty-icon">!</div><h2>التنبيهات</h2><p>3 تنبيهات تحتاج مراجعة من فريق التشغيل.</p></div></section>
+      <section class="view" id="view-content"><div class="empty-view"><div class="empty-icon">▤</div><h2>الخدمات والمحتوى</h2><p>إدارة المطاعم والخدمات والعروض والمحتوى.</p></div></section>
+      <section class="view" id="view-messages"><div class="empty-view"><div class="empty-icon">✉</div><h2>الرسائل</h2><p>رسائل عامة أو موجهة لمبنى أو دور أو غرفة.</p></div></section>
+      <section class="view" id="view-integrations"><div class="empty-view"><div class="empty-icon">⌁</div><h2>التكاملات</h2><p>PMS وWISI وواجهات Samsung وLG.</p></div></section>
+      <section class="view" id="view-reports"><div class="empty-view"><div class="empty-icon">◒</div><h2>التقارير</h2><p>مؤشرات التشغيل والأجهزة والقنوات والطلبات.</p></div></section>
+      <section class="view" id="view-settings"><div class="empty-view"><div class="empty-icon">⚙</div><h2>الإعدادات</h2><p>إعدادات الفندق والهوية واللغات والصلاحيات.</p></div></section>
+    </main>
+  </div>
+
+  <dialog id="quickDialog">
+    <form method="dialog" class="dialog-card">
+      <button class="dialog-close" value="cancel">×</button>
+      <span class="kicker">إجراء سريع</span>
+      <h3>ماذا تريد أن تفعل؟</h3>
+      <div class="quick-grid">
+        <button value="checkin"><b>＋</b><span>تسكين نزيل</span></button>
+        <button value="message"><b>✉</b><span>إرسال رسالة</span></button>
+        <button value="request"><b>◇</b><span>إنشاء طلب</span></button>
+        <button value="device"><b>▣</b><span>تسجيل تلفزيون</span></button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast"><b>✓</b><span>تم تحديث البيانات</span></div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
