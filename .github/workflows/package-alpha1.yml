@@ -1,0 +1,24 @@
+name: Package HDB Hospitality Alpha1
+
+on:
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Create package
+        run: |
+          zip -r HDBIPTV_HOSPITALITY_ALPHA1.zip . -x '.git/*' 'HDBIPTV_HOSPITALITY_ALPHA1.zip'
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: HDBIPTV_HOSPITALITY_ALPHA1
+          path: HDBIPTV_HOSPITALITY_ALPHA1.zip
+          if-no-files-found: error
