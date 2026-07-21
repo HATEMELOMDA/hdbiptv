@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>HDB Hospitality Control</title>
+  <link rel="stylesheet" href="control.css">
+  <script src="api-client.js" defer></script>
+  <script src="enterprise.js" defer></script>
+  <script src="control.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">H</div><div><strong>HDB Hospitality</strong><span>Hotel Control Center</span></div></div>
+      <nav id="main-nav">
+        <button class="nav-item active" data-view="dashboard"><span>◫</span>مركز القيادة</button>
+        <button class="nav-item" data-view="rooms"><span>▦</span>الغرف والإقامات</button>
+        <button class="nav-item" data-view="devices"><span>▣</span>التلفزيونات</button>
+        <button class="nav-item" data-view="channels"><span>▶</span>القنوات والباقات</button>
+        <button class="nav-item" data-view="services"><span>◇</span>الخدمات والطلبات</button>
+        <button class="nav-item" data-view="messages"><span>✉</span>الرسائل والعروض</button>
+        <button class="nav-item" data-view="experience"><span>✦</span>تجربة النزيل</button>
+        <button class="nav-item" data-view="system"><span>⚙</span>حالة النظام</button>
+      </nav>
+      <div class="sidebar-foot"><span class="online-dot"></span><div><strong>النظام متصل</strong><small>HDB Core 2.0 Enterprise</small></div></div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div><small id="view-kicker">OVERVIEW</small><h1 id="view-title">مركز القيادة</h1></div>
+        <div class="top-actions">
+          <span id="sync-status" class="sync-status working">جاري التحقق…</span>
+          <div class="user-pill"><div class="user-avatar">H</div><div><strong id="current-user-name">مستخدم النظام</strong><small id="current-user-role">operator</small></div></div>
+          <button id="refresh-btn" class="btn ghost">تحديث</button>
+          <button id="primary-btn" class="btn primary">إضافة غرفة</button>
+          <button id="logout-btn" class="btn danger">خروج</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="metrics" id="metrics"></div>
+        <div class="dashboard-grid">
+          <section class="panel span-8"><div class="panel-head"><div><small>ROOM OPERATIONS</small><h2>حالة الغرف</h2></div><div class="segmented"><button class="active">اليوم</button><button>الأسبوع</button></div></div><div class="room-map" id="room-map"></div></section>
+          <section class="panel span-4"><div class="panel-head"><div><small>LIVE HEALTH</small><h2>حالة المنظومة</h2></div><span class="status good">مستقر</span></div><div class="health-list" id="health-list"></div></section>
+          <section class="panel span-7"><div class="panel-head"><div><small>GUEST REQUESTS</small><h2>آخر الطلبات</h2></div><button class="text-btn" data-jump="services">عرض الكل</button></div><div class="table-wrap"><table><thead><tr><th>الطلب</th><th>الغرفة</th><th>الحالة</th><th>الوقت</th></tr></thead><tbody id="request-table"></tbody></table></div></section>
+          <section class="panel span-5"><div class="panel-head"><div><small>STREAM MONITOR</small><h2>مراقبة القنوات</h2></div><button class="text-btn" data-jump="channels">إدارة</button></div><div class="stream-list" id="stream-list"></div></section>
+        </div>
+      </section>
+
+      <section class="view" id="view-rooms"><div class="section-toolbar"><input id="room-search" placeholder="ابحث برقم الغرفة أو اسم النزيل"><select id="room-filter"><option value="all">كل الحالات</option><option value="occupied">مشغولة</option><option value="vacant">شاغرة</option><option value="service">خدمة</option></select><button class="btn primary" data-action="add-room">إضافة غرفة</button></div><div class="panel"><div class="table-wrap"><table><thead><tr><th>الغرفة</th><th>الدور</th><th>النزيل</th><th>الحالة</th><th>التلفزيون</th><th>آخر تحديث</th><th></th></tr></thead><tbody id="rooms-table"></tbody></table></div></div></section>
+
+      <section class="view" id="view-devices"><div class="section-toolbar"><input id="device-search" placeholder="ابحث بالجهاز أو الغرفة"><button class="btn ghost">اكتشاف الأجهزة</button><button class="btn primary" data-action="add-device">ربط تلفزيون</button></div><div class="card-grid" id="devices-grid"></div></section>
+
+      <section class="view" id="view-channels"><div class="section-toolbar"><input id="channel-search" placeholder="ابحث بالقناة"><select><option>كل المجموعات</option><option>القرآن</option><option>السعودية</option><option>الأخبار</option><option>الترفيه</option></select><button class="btn ghost">فحص المصادر</button><button class="btn primary" data-action="add-channel">إضافة قناة</button></div><div class="panel"><div class="table-wrap"><table><thead><tr><th>#</th><th>القناة</th><th>المجموعة</th><th>المصدر</th><th>الجودة</th><th>الحالة</th><th></th></tr></thead><tbody id="channels-table"></tbody></table></div></div></section>
+
+      <section class="view" id="view-services"><div class="metrics compact" id="service-metrics"></div><div class="panel"><div class="panel-head"><div><small>REQUEST QUEUE</small><h2>طلبات النزلاء</h2></div><select id="request-filter"><option value="all">كل الطلبات</option><option value="new">جديدة</option><option value="progress">قيد التنفيذ</option><option value="done">مكتملة</option></select></div><div class="table-wrap"><table><thead><tr><th>رقم الطلب</th><th>الخدمة</th><th>الغرفة</th><th>الحالة</th><th>وقت الإنشاء</th><th>الإجراء</th></tr></thead><tbody id="services-table"></tbody></table></div></div></section>
+
+      <section class="view" id="view-messages"><div class="split-layout"><section class="panel"><div class="panel-head"><div><small>CAMPAIGNS</small><h2>الرسائل والعروض</h2></div><button class="btn primary" data-action="add-message">رسالة جديدة</button></div><div class="message-list" id="message-list"></div></section><section class="panel composer"><small>MESSAGE COMPOSER</small><h2>إنشاء رسالة للنزيل</h2><label>العنوان<input id="msg-title" value="مرحبًا بك في هدب"></label><label>المحتوى<textarea id="msg-body">نتمنى لك إقامة مريحة. فريق الفندق جاهز لخدمتك.</textarea></label><label>النطاق<select id="msg-target"><option>كل الفندق</option><option>مبنى محدد</option><option>دور محدد</option><option>غرفة محددة</option></select></label><button id="publish-message" class="btn primary full">نشر الرسالة</button></section></div></section>
+
+      <section class="view" id="view-experience"><div class="experience-layout"><section class="panel editor"><div class="panel-head"><div><small>GUEST EXPERIENCE</small><h2>محرر شاشة الترحيب</h2></div><span class="status draft">مسودة</span></div><label>اسم الفندق<input id="experience-hotel" value="HDB Hospitality"></label><label>عنوان الترحيب<input id="experience-title" value="أهلًا بك في هدب"></label><label>الوصف<textarea id="experience-subtitle">إقامة هادئة وتجربة رقمية صُممت لتكون كل خدمات الفندق بين يديك.</textarea></label><div class="form-row"><label>اللون الأساسي<input id="experience-color" type="color" value="#d6b36a"></label><label>تفعيل الطقس<select><option>نعم</option><option>لا</option></select></label></div><div class="action-row"><button id="preview-experience" class="btn ghost">تحديث المعاينة</button><button id="publish-experience" class="btn primary">نشر للفندق</button></div></section><section class="tv-preview"><div class="tv-frame"><div class="tv-screen"><div class="preview-logo">H</div><small>WELCOME</small><h2 id="preview-title">أهلًا بك في هدب</h2><p id="preview-subtitle">إقامة هادئة وتجربة رقمية صُممت لتكون كل خدمات الفندق بين يديك.</p><div class="preview-button">الدخول إلى خدمات الفندق</div></div></div><span>Samsung / LG — 16:9 Preview</span></section></div></section>
+
+      <section class="view" id="view-system"><div class="metrics" id="system-metrics"></div><div class="dashboard-grid"><section class="panel span-7"><div class="panel-head"><div><small>SERVICES</small><h2>خدمات الخادم</h2></div></div><div class="health-list" id="system-services"></div></section><section class="panel span-5"><div class="panel-head"><div><small>AUDIT</small><h2>آخر العمليات</h2></div></div><div class="audit-list" id="audit-list"></div></section></div></section>
+    </main>
+  </div>
+
+  <dialog id="entity-modal"><form method="dialog" id="entity-form"><div class="modal-head"><div><small id="modal-kicker">CREATE</small><h2 id="modal-title">إضافة</h2></div><button value="cancel" class="icon-btn">×</button></div><div id="modal-fields"></div><div class="modal-actions"><button value="cancel" class="btn ghost">إلغاء</button><button id="modal-save" value="default" class="btn primary">حفظ</button></div></form></dialog>
+  <div id="toast" class="toast"></div>
+</body>
+</html>

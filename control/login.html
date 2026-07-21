@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>HDB Hospitality — دخول الإدارة</title>
+  <link rel="stylesheet" href="login.css">
+  <script src="login.js" defer></script>
+</head>
+<body>
+  <main class="login-shell">
+    <section class="brand-panel">
+      <div class="brand-mark">H</div>
+      <small>HOSPITALITY OPERATING SYSTEM</small>
+      <h1>HDB Hospitality</h1>
+      <p>إدارة مركزية للغرف، الأجهزة، القنوات، الخدمات وتجربة النزيل.</p>
+      <div class="feature-grid">
+        <div><strong>24/7</strong><span>مراقبة مستمرة</span></div>
+        <div><strong>RTL</strong><span>عربي وإنجليزي</span></div>
+        <div><strong>RBAC</strong><span>صلاحيات آمنة</span></div>
+        <div><strong>API</strong><span>تكامل مركزي</span></div>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="auth-head">
+          <span class="status-dot"></span>
+          <div><small>SECURE CONSOLE</small><h2 id="form-title">تسجيل الدخول</h2></div>
+        </div>
+
+        <div id="setup-note" class="notice" hidden>هذه أول مرة لتشغيل النظام. أنشئ حساب المالك الرئيسي.</div>
+        <form id="auth-form" autocomplete="off">
+          <label id="name-field" hidden>الاسم الكامل<input id="name" name="name" autocomplete="name"></label>
+          <label>اسم المستخدم<input id="username" name="username" required autocomplete="username" inputmode="latin"></label>
+          <label>كلمة المرور<input id="password" name="password" type="password" required minlength="10" autocomplete="current-password"></label>
+          <button id="submit-btn" type="submit">دخول إلى مركز القيادة</button>
+        </form>
+        <p id="auth-message" class="auth-message" role="status"></p>
+        <footer><span>HDB Core 2.0</span><span>Session + CSRF + RBAC</span></footer>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
