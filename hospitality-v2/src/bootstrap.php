@@ -4,6 +4,7 @@ declare(strict_types=1);
 const HDB_ROOT = __DIR__ . '/..';
 const HDB_STORAGE = HDB_ROOT . '/storage';
 const HDB_DATABASE = HDB_STORAGE . '/database.json';
+const HDB_DATABASE_BACKUP = HDB_STORAGE . '/database.backup.json';
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_name('HDB_HOSPITALITY');
@@ -26,7 +27,7 @@ function hdb_id(string $prefix): string
     return $prefix . '_' . bin2hex(random_bytes(6));
 }
 
-function hdb_json(array $payload, int $status = 200): never
+function hdb_json(array $payload, int $status = 200): void
 {
     http_response_code($status);
     header('Content-Type: application/json; charset=utf-8');
@@ -140,10 +141,17 @@ function hdb_prepare_storage(): void
     }
     if (!file_exists(HDB_DATABASE)) {
         $seed = json_encode(hdb_seed(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-        if (file_put_contents(HDB_DATABASE, $seed, LOCK_EX) === false) {
+        if ($seed === false || file_put_contents(HDB_DATABASE, $seed, LOCK_EX) === false) {
             hdb_json(['ok' => false, 'error' => 'Unable to initialize database'], 500);
         }
+        @file_put_contents(HDB_DATABASE_BACKUP, $seed, LOCK_EX);
     }
+}
+
+function hdb_decode_database(string $json): ?array
+{
+    $db = json_decode($json, true);
+    return is_array($db) ? $db : null;
 }
 
 function hdb_db(): array
@@ -157,25 +165,70 @@ function hdb_db(): array
     $json = stream_get_contents($handle) ?: '{}';
     flock($handle, LOCK_UN);
     fclose($handle);
-    $db = json_decode($json, true);
-    if (!is_array($db)) {
-        hdb_json(['ok' => false, 'error' => 'Database file is corrupted'], 500);
+
+    $db = hdb_decode_database($json);
+    if ($db !== null) {
+        return $db;
     }
-    return $db;
+
+    $backupJson = @file_get_contents(HDB_DATABASE_BACKUP);
+    $backup = is_string($backupJson) ? hdb_decode_database($backupJson) : null;
+    if ($backup !== null) {
+        @file_put_contents(HDB_DATABASE, $backupJson, LOCK_EX);
+        return $backup;
+    }
+
+    hdb_json(['ok' => false, 'error' => 'Database file is corrupted and no valid backup is available'], 500);
+}
+
+function hdb_write_all($handle, string $content): bool
+{
+    $length = strlen($content);
+    $written = 0;
+    while ($written < $length) {
+        $result = fwrite($handle, substr($content, $written));
+        if ($result === false || $result === 0) {
+            return false;
+        }
+        $written += $result;
+    }
+    return true;
 }
 
 function hdb_save(array $db): void
 {
     hdb_prepare_storage();
     $db['meta']['updated_at'] = hdb_now();
-    $tmp = HDB_DATABASE . '.tmp';
     $json = json_encode($db, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-    if ($json === false || file_put_contents($tmp, $json, LOCK_EX) === false) {
-        hdb_json(['ok' => false, 'error' => 'Unable to write database'], 500);
+    if ($json === false) {
+        hdb_json(['ok' => false, 'error' => 'Unable to encode database'], 500);
     }
-    if (!rename($tmp, HDB_DATABASE)) {
-        @unlink($tmp);
-        hdb_json(['ok' => false, 'error' => 'Unable to commit database update'], 500);
+
+    $handle = fopen(HDB_DATABASE, 'c+');
+    if ($handle === false || !flock($handle, LOCK_EX)) {
+        if (is_resource($handle)) {
+            fclose($handle);
+        }
+        hdb_json(['ok' => false, 'error' => 'Unable to lock database'], 500);
+    }
+
+    rewind($handle);
+    $previous = stream_get_contents($handle);
+    if (is_string($previous) && hdb_decode_database($previous) !== null) {
+        @file_put_contents(HDB_DATABASE_BACKUP, $previous, LOCK_EX);
+    }
+
+    rewind($handle);
+    $ok = ftruncate($handle, 0) && hdb_write_all($handle, $json) && fflush($handle);
+    flock($handle, LOCK_UN);
+    fclose($handle);
+
+    if (!$ok) {
+        $backup = @file_get_contents(HDB_DATABASE_BACKUP);
+        if (is_string($backup) && hdb_decode_database($backup) !== null) {
+            @file_put_contents(HDB_DATABASE, $backup, LOCK_EX);
+        }
+        hdb_json(['ok' => false, 'error' => 'Unable to write database'], 500);
     }
 }
 
