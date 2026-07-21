@@ -1,0 +1,10 @@
+(function(){
+'use strict';
+var cart=[];
+function q(s){return document.querySelector(s)}function qa(s){return[].slice.call(document.querySelectorAll(s))}
+function money(n){return Number(n).toFixed(0)+' ر.س'}
+function render(){var list=q('#cart-list'),button=q('#place-order');if(!list||!button)return;if(!cart.length){list.innerHTML='<div class="request-item"><span>السلة فارغة</span><strong>0 ر.س</strong></div>';button.disabled=true;button.textContent='إرسال الطلب — 0 ر.س';return}var total=cart.reduce(function(a,b){return a+b.price},0);list.innerHTML=cart.map(function(x,i){return'<div class="request-item"><span>'+(i+1)+'. '+x.name+'</span><strong>'+money(x.price)+'</strong></div>'}).join('')+'<div class="request-item"><span>الإجمالي</span><strong>'+money(total)+'</strong></div>';button.disabled=false;button.textContent='إرسال الطلب — '+money(total)}
+function add(card){cart.push({name:card.getAttribute('data-item'),price:Number(card.getAttribute('data-price')||0)});card.classList.add('focused');setTimeout(function(){card.classList.remove('focused')},300);render()}
+function boot(){qa('.catalog-card').forEach(function(card){card.addEventListener('click',function(){add(card)});card.addEventListener('keydown',function(e){if((e.keyCode||e.which)===13)add(card)})});var btn=q('#place-order');if(btn)btn.addEventListener('click',function(){if(!cart.length)return;var total=cart.reduce(function(a,b){return a+b.price},0);var order={id:'ORD-'+Date.now(),room:(localStorage.getItem('hdb_room')||'1201'),items:cart.slice(),total:total,status:'new',created_at:new Date().toISOString()};var orders=[];try{orders=JSON.parse(localStorage.getItem('hdb_orders')||'[]')}catch(e){}orders.unshift(order);localStorage.setItem('hdb_orders',JSON.stringify(orders.slice(0,20)));document.dispatchEvent(new CustomEvent('hdb:service-request',{detail:{service:'In-room dining order — '+money(total),details:cart.map(function(x){return x.name}).join(', ')}}));cart=[];render();btn.textContent='تم إرسال الطلب';setTimeout(render,1600)});render()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot()
+})();

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HDB Global Hospitality — Dining</title>
+  <link rel="stylesheet" href="css/hdb-global.css">
+  <script src="js/hdb-global.js" defer></script><script src="js/hdb-guest-api.js" defer></script><script src="js/hdb-dining.js" defer></script>
+</head>
+<body>
+  <div class="services-page">
+    <header class="services-header">
+      <div class="hdb-brand"><div class="hdb-logo"><img src="assets/logo.png" alt="HDB"></div><div class="guest-greeting"><h1>المطاعم وخدمة الغرف</h1><p>اختر وجبتك وأرسل الطلب مباشرة إلى الغرفة</p></div></div>
+      <button class="back-button focusable" onclick="location.href='menu.html'">العودة للقائمة</button>
+    </header>
+    <main class="services-content">
+      <section class="catalog">
+        <article class="catalog-card focusable" tabindex="0" data-item="إفطار هدب" data-price="58"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M4 16h16M6 16a6 6 0 0 1 12 0M12 10V6M9 6h6"/></svg></div><strong>إفطار هدب</strong><span>بيض، مخبوزات، فواكه ومشروب ساخن — 58 ر.س</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-item="برجر اللحم" data-price="64"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M4 10h16M5 10a7 5 0 0 1 14 0M4 14h16M5 18h14"/></svg></div><strong>برجر اللحم</strong><span>لحم مشوي، جبن، بطاطس — 64 ر.س</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-item="سلطة سيزر" data-price="42"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M5 8c1 8 3 11 7 11s6-3 7-11H5ZM9 5c2 1 4 1 6 0"/></svg></div><strong>سلطة سيزر</strong><span>خس، دجاج مشوي، بارميزان — 42 ر.س</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-item="باستا ألفريدو" data-price="55"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M5 8h14l-2 11H7L5 8ZM8 5c2 2 6 2 8 0"/></svg></div><strong>باستا ألفريدو</strong><span>صلصة كريمية ودجاج — 55 ر.س</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-item="قهوة عربية" data-price="28"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M5 8h12v9a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8ZM17 10h2a3 3 0 0 1 0 6h-2M8 4c0 2 2 2 2 4M12 4c0 2 2 2 2 4"/></svg></div><strong>قهوة عربية</strong><span>دلة قهوة مع تمر — 28 ر.س</span></article>
+        <article class="catalog-card focusable" tabindex="0" data-item="طبق فواكه" data-price="36"><div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M5 12c0 5 3 8 7 8s7-3 7-8H5ZM12 12V6M12 7c2-3 5-2 6 0"/></svg></div><strong>طبق فواكه</strong><span>تشكيلة فواكه موسمية — 36 ر.س</span></article>
+      </section>
+      <aside class="request-panel">
+        <div><small class="eyebrow">IN-ROOM DINING</small><h2>سلة الطلب</h2><p>أضف الأصناف المطلوبة ثم أرسل الطلب. ينتقل الطلب إلى لوحة التشغيل، ويصبح جاهزًا للربط بالفاتورة في PMS.</p><div class="request-list" id="cart-list"><div class="request-item"><span>السلة فارغة</span><strong>0 ر.س</strong></div></div></div>
+        <button id="place-order" class="primary-action focusable" disabled>إرسال الطلب — 0 ر.س</button>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

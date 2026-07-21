@@ -1,0 +1,92 @@
+{
+  "meta": {"version":"2.0.0-global","property":"HDB Riyadh Tower","timezone":"Asia/Riyadh","updated_at":"2026-07-21T11:30:00Z"},
+  "properties": [{"id":"P1","name":"HDB Riyadh Tower","city":"Riyadh","country":"Saudi Arabia","rooms":120,"status":"online"}],
+  "buildings": [
+    {"id":"B1","property_id":"P1","name":"Tower A","floors":20,"rooms":100},
+    {"id":"B2","property_id":"P1","name":"Villa Wing","floors":4,"rooms":20}
+  ],
+  "floors": [
+    {"id":"F12","building_id":"B1","number":"12","rooms":8},
+    {"id":"F13","building_id":"B1","number":"13","rooms":8},
+    {"id":"F14","building_id":"B1","number":"14","rooms":8}
+  ],
+  "rooms": [
+    {"id":"R1201","number":"1201","floor":"12","building":"Tower A","guest":"Ahmed Mohammed","nationality":"Saudi","status":"occupied","tv":"online","stay":"21–24 Jul","package":"Premium","dnd":false},
+    {"id":"R1202","number":"1202","floor":"12","building":"Tower A","guest":"—","nationality":"—","status":"vacant","tv":"online","stay":"—","package":"Standard","dnd":false},
+    {"id":"R1203","number":"1203","floor":"12","building":"Tower A","guest":"Sara Khaled","nationality":"Kuwaiti","status":"occupied","tv":"online","stay":"20–23 Jul","package":"Premium","dnd":true},
+    {"id":"R1204","number":"1204","floor":"12","building":"Tower A","guest":"—","nationality":"—","status":"service","tv":"offline","stay":"—","package":"Standard","dnd":false},
+    {"id":"R1301","number":"1301","floor":"13","building":"Tower A","guest":"Mohammed Ali","nationality":"Egyptian","status":"occupied","tv":"online","stay":"21–26 Jul","package":"VIP","dnd":false},
+    {"id":"R1302","number":"1302","floor":"13","building":"Tower A","guest":"—","nationality":"—","status":"vacant","tv":"online","stay":"—","package":"Standard","dnd":false},
+    {"id":"R1303","number":"1303","floor":"13","building":"Tower A","guest":"Abdullah Salem","nationality":"Emirati","status":"occupied","tv":"online","stay":"19–22 Jul","package":"Premium","dnd":false},
+    {"id":"R1401","number":"1401","floor":"14","building":"Tower A","guest":"—","nationality":"—","status":"vacant","tv":"online","stay":"—","package":"Standard","dnd":false},
+    {"id":"R1402","number":"1402","floor":"14","building":"Tower A","guest":"Fatima Hassan","nationality":"Bahraini","status":"occupied","tv":"warning","stay":"21–25 Jul","package":"VIP","dnd":false},
+    {"id":"V101","number":"V101","floor":"1","building":"Villa Wing","guest":"—","nationality":"—","status":"vacant","tv":"online","stay":"—","package":"Villa","dnd":false}
+  ],
+  "guests": [
+    {"id":"G1001","name":"Ahmed Mohammed","room":"1201","language":"Arabic","vip":"Gold","checkin":"21 Jul 15:10","checkout":"24 Jul 12:00","status":"in-house"},
+    {"id":"G1002","name":"Sara Khaled","room":"1203","language":"Arabic","vip":"Standard","checkin":"20 Jul 20:30","checkout":"23 Jul 12:00","status":"in-house"},
+    {"id":"G1003","name":"Mohammed Ali","room":"1301","language":"English","vip":"Platinum","checkin":"21 Jul 13:45","checkout":"26 Jul 12:00","status":"in-house"},
+    {"id":"G1004","name":"Abdullah Salem","room":"1303","language":"Arabic","vip":"Gold","checkin":"19 Jul 18:05","checkout":"22 Jul 12:00","status":"in-house"}
+  ],
+  "devices": [
+    {"id":"TV1201","room":"1201","brand":"Samsung","model":"Q155Q7F","platform":"Tizen 9.0","ip":"192.168.20.31","mac":"3C:6A:9D:12:01:31","status":"online","app":"2.0.0","signal":98,"last":"Now"},
+    {"id":"TV1202","room":"1202","brand":"Samsung","model":"Q155Q7F","platform":"Tizen 9.0","ip":"192.168.20.32","mac":"3C:6A:9D:12:01:32","status":"online","app":"2.0.0","signal":96,"last":"1 min"},
+    {"id":"TV1203","room":"1203","brand":"Samsung","model":"Q155Q7F","platform":"Tizen 9.0","ip":"192.168.20.33","mac":"3C:6A:9D:12:01:33","status":"online","app":"2.0.0","signal":99,"last":"Now"},
+    {"id":"TV1204","room":"1204","brand":"LG","model":"UT801C","platform":"webOS 24","ip":"192.168.20.34","mac":"A4:36:C7:12:04:34","status":"offline","app":"1.9.4","signal":0,"last":"17 min"},
+    {"id":"TV1301","room":"1301","brand":"LG","model":"UT801C","platform":"webOS 24","ip":"192.168.20.41","mac":"A4:36:C7:13:01:41","status":"online","app":"2.0.0","signal":94,"last":"Now"},
+    {"id":"TV1402","room":"1402","brand":"Samsung","model":"Q155Q7F","platform":"Tizen 9.0","ip":"192.168.20.52","mac":"3C:6A:9D:14:02:52","status":"warning","app":"1.8.2","signal":71,"last":"4 min"}
+  ],
+  "channels": [
+    {"id":"CH1","number":1,"name":"Quran Kareem","name_ar":"القرآن الكريم","group":"Religious","source":"udp://239.10.1.1:5000","backup":"http://127.0.0.1/hls/1.m3u8","quality":"1080p","bitrate":"6.2 Mbps","epg":true,"status":"online","uptime":99.99},
+    {"id":"CH2","number":2,"name":"Sunnah","name_ar":"السنة النبوية","group":"Religious","source":"udp://239.10.1.2:5000","backup":"http://127.0.0.1/hls/2.m3u8","quality":"1080p","bitrate":"5.8 Mbps","epg":true,"status":"online","uptime":99.98},
+    {"id":"CH3","number":3,"name":"Saudi TV","name_ar":"السعودية","group":"Saudi","source":"udp://239.10.1.3:5000","backup":"http://127.0.0.1/hls/3.m3u8","quality":"1080p","bitrate":"7.1 Mbps","epg":true,"status":"online","uptime":99.97},
+    {"id":"CH4","number":4,"name":"Al Ekhbariya","name_ar":"الإخبارية","group":"News","source":"udp://239.10.1.4:5000","backup":"http://127.0.0.1/hls/4.m3u8","quality":"1080p","bitrate":"6.8 Mbps","epg":true,"status":"online","uptime":99.95},
+    {"id":"CH5","number":5,"name":"MBC 1","name_ar":"MBC 1","group":"Entertainment","source":"udp://239.10.2.1:5000","backup":"http://127.0.0.1/hls/5.m3u8","quality":"1080p","bitrate":"7.4 Mbps","epg":true,"status":"online","uptime":99.91},
+    {"id":"CH6","number":6,"name":"MBC Action","name_ar":"MBC أكشن","group":"Entertainment","source":"udp://239.10.2.2:5000","backup":"http://127.0.0.1/hls/6.m3u8","quality":"720p","bitrate":"3.1 Mbps","epg":false,"status":"warning","uptime":96.4}
+  ],
+  "packages": [
+    {"id":"PKG1","name":"Standard","rooms":62,"channels":28,"description":"Saudi, news and entertainment essentials","status":"published"},
+    {"id":"PKG2","name":"Premium","rooms":42,"channels":54,"description":"Full entertainment, sports and international channels","status":"published"},
+    {"id":"PKG3","name":"VIP","rooms":12,"channels":72,"description":"All channels, VOD and premium hotel services","status":"published"},
+    {"id":"PKG4","name":"Villa","rooms":4,"channels":46,"description":"Curated package for villa residences","status":"draft"}
+  ],
+  "epg": [
+    {"channel":"Saudi TV","now":"Saudi News","next":"Cultural Dialogue","progress":62},
+    {"channel":"Al Ekhbariya","now":"Live Bulletin","next":"Markets Today","progress":41},
+    {"channel":"MBC 1","now":"Morning Show","next":"Drama Series","progress":78},
+    {"channel":"MBC Action","now":"Action Movie","next":"Top Gear","progress":33}
+  ],
+  "requests": [
+    {"id":"REQ1042","service":"Extra amenities","room":"1203","guest":"Sara Khaled","department":"Housekeeping","priority":"normal","status":"new","created":"07:18","sla":"12 min"},
+    {"id":"REQ1041","service":"Room cleaning","room":"1301","guest":"Mohammed Ali","department":"Housekeeping","priority":"normal","status":"progress","created":"07:11","sla":"18 min"},
+    {"id":"REQ1040","service":"Air conditioning","room":"1204","guest":"—","department":"Engineering","priority":"high","status":"progress","created":"06:56","sla":"33 min"},
+    {"id":"REQ1039","service":"Luggage assistance","room":"1402","guest":"Fatima Hassan","department":"Bell Desk","priority":"normal","status":"done","created":"06:42","sla":"8 min"}
+  ],
+  "signage": [
+    {"id":"SIG1","name":"Lobby Welcome Wall","zone":"Main Lobby","resolution":"3840×1080","playlist":"Brand & Events","status":"online","screens":3},
+    {"id":"SIG2","name":"Elevator Screens","zone":"Tower A","resolution":"1920×1080","playlist":"Hotel Offers","status":"online","screens":20},
+    {"id":"SIG3","name":"Restaurant Menu","zone":"Restaurant","resolution":"2160×3840","playlist":"Dining Menu","status":"warning","screens":2}
+  ],
+  "integrations": [
+    {"id":"PMS","name":"Hotel PMS","vendor":"Oracle OPERA / Generic API","description":"Guest, room, check-in, checkout and billing synchronization","status":"ready","last":"Not configured"},
+    {"id":"WISI","name":"WISI Headend","vendor":"WISI OM / Tangram","description":"Channel sources, service discovery and stream health","status":"online","last":"21 Jul 10:42"},
+    {"id":"SAMSUNG","name":"Samsung Hospitality","vendor":"Tizen / LYNK","description":"Device registration, application launch and room mapping","status":"online","last":"21 Jul 10:41"},
+    {"id":"LG","name":"LG Hospitality","vendor":"webOS / Pro:Centric","description":"LG device fleet and guest application deployment","status":"ready","last":"Connector ready"},
+    {"id":"CAST","name":"Secure Casting","vendor":"Chromecast / AirPlay Gateway","description":"Guest pairing, isolation and automatic checkout reset","status":"ready","last":"Gateway required"},
+    {"id":"BILL","name":"Guest Billing","vendor":"PMS Posting API","description":"Post dining and service charges to guest folio","status":"ready","last":"PMS required"}
+  ],
+  "users": [
+    {"id":"U1","name":"Hatem Elomda","email":"admin@hdb.local","role":"Super Administrator","scope":"All properties","status":"online"},
+    {"id":"U2","name":"Front Office","email":"reception@hdb.local","role":"Reception","scope":"HDB Riyadh Tower","status":"online"},
+    {"id":"U3","name":"Engineering Team","email":"engineering@hdb.local","role":"Engineering","scope":"Devices & Requests","status":"offline"},
+    {"id":"U4","name":"Content Manager","email":"content@hdb.local","role":"Content Editor","scope":"Channels & Experience","status":"online"}
+  ],
+  "audit": [
+    {"event":"Channel order published","actor":"Content Manager","time":"10:42","type":"content"},
+    {"event":"TV1204 became offline","actor":"Device Monitor","time":"10:38","type":"alert"},
+    {"event":"Guest checked in to room 1301","actor":"PMS Connector","time":"09:56","type":"pms"},
+    {"event":"Welcome experience published","actor":"Hatem Elomda","time":"09:32","type":"experience"}
+  ],
+  "experience": {"hotel":"HDB Hospitality","welcome_ar":"أهلًا بك في هدب","welcome_en":"Welcome to HDB","subtitle_ar":"إقامة هادئة وتجربة رقمية صُممت لتكون كل خدمات الفندق بين يديك.","subtitle_en":"A calm stay with every hotel service within reach.","accent":"#d9b66f","background":"midnight","weather":true,"prayer":true,"bill":true,"checkout":true,"published_at":"21 Jul 09:32"},
+  "system": {"api":99.99,"middleware":99.97,"headend":99.95,"devices":96.4,"storage":41,"cpu":24,"memory":52,"streams":54}
+}

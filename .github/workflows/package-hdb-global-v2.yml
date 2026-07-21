@@ -1,0 +1,78 @@
+name: Package HDB Global Hospitality V2
+
+on:
+  push:
+    branches:
+      - build/hdb-global-v2
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Validate JavaScript
+        run: |
+          node --check js/hdb-global.js
+          node --check js/hdb-guest-api.js
+          node --check js/hdb-services.js
+          node --check js/hdb-dining.js
+          node --check control/global.js
+          node --check control/control.js
+
+      - name: Validate PHP
+        run: |
+          php -l api/bootstrap.php
+          php -l api/index.php
+          php -l api/v2/bootstrap.php
+          php -l api/v2/index.php
+          php -l install.php
+
+      - name: Validate JSON
+        run: |
+          python -m json.tool api/data/state.json >/dev/null
+          python -m json.tool api/v2/data/state.json >/dev/null
+
+      - name: Verify global platform files
+        run: |
+          test -f index.html
+          test -f menu.html
+          test -f tv.html
+          test -f services.html
+          test -f dining.html
+          test -f bill.html
+          test -f checkout.html
+          test -f casting.html
+          test -f control/index.html
+          test -f control/global.css
+          test -f control/global.js
+          test -f api/v2/index.php
+          test -f api/v2/data/state.json
+          test -f GLOBAL_PLATFORM_AR.md
+
+      - name: Build full project ZIP
+        run: |
+          mkdir -p dist/HDBIPTV_GLOBAL_HOSPITALITY_V2
+          rsync -a ./ dist/HDBIPTV_GLOBAL_HOSPITALITY_V2/ \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'dist' \
+            --exclude 'platform-alpha1'
+          cd dist
+          zip -r HDBIPTV_GLOBAL_HOSPITALITY_V2.zip HDBIPTV_GLOBAL_HOSPITALITY_V2
+          sha256sum HDBIPTV_GLOBAL_HOSPITALITY_V2.zip > HDBIPTV_GLOBAL_HOSPITALITY_V2.sha256.txt
+
+      - name: Upload full project package
+        uses: actions/upload-artifact@v4
+        with:
+          name: HDBIPTV_GLOBAL_HOSPITALITY_V2
+          path: |
+            dist/HDBIPTV_GLOBAL_HOSPITALITY_V2.zip
+            dist/HDBIPTV_GLOBAL_HOSPITALITY_V2.sha256.txt
+          if-no-files-found: error
+          retention-days: 90

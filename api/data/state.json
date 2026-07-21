@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "version": "1.1.0",
+    "updated_at": "2026-07-21T07:30:00Z"
+  },
+  "rooms": [
+    {"id":"R-1201","number":"1201","floor":"12","guest":"أحمد محمد","status":"occupied","tv":"online"},
+    {"id":"R-1202","number":"1202","floor":"12","guest":"—","status":"vacant","tv":"online"},
+    {"id":"R-1203","number":"1203","floor":"12","guest":"سارة خالد","status":"occupied","tv":"online"},
+    {"id":"R-1204","number":"1204","floor":"12","guest":"—","status":"service","tv":"offline"}
+  ],
+  "devices": [
+    {"id":"TV-1201","room":"1201","brand":"Samsung","model":"Q155Q7F","ip":"192.168.20.31","status":"online"},
+    {"id":"TV-1204","room":"1204","brand":"LG","model":"UT801C","ip":"192.168.20.34","status":"offline"}
+  ],
+  "channels": [
+    {"id":"CH-1","number":1,"name":"القرآن الكريم","group":"القرآن","source":"udp://239.10.1.1:5000","quality":"1080p","status":"online"},
+    {"id":"CH-2","number":2,"name":"السنة النبوية","group":"السعودية","source":"udp://239.10.1.2:5000","quality":"1080p","status":"online"},
+    {"id":"CH-3","number":3,"name":"السعودية","group":"السعودية","source":"udp://239.10.1.3:5000","quality":"1080p","status":"online"}
+  ],
+  "requests": [],
+  "messages": [],
+  "services": [],
+  "audit": [],
+  "experience": {
+    "hotel": "HDB Hospitality",
+    "title": "أهلًا بك في هدب",
+    "subtitle": "إقامة هادئة وتجربة رقمية صُممت لتكون كل خدمات الفندق بين يديك.",
+    "primary_color": "#d6b36a",
+    "published_at": null
+  }
+}

@@ -2,44 +2,39 @@
 <html lang="ar" dir="rtl" data-page="index">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HDB Hotel - Welcome</title>
-
-  <!-- ملفات مشتركة -->
-  <script src="js/i18n.js" defer></script>
-  <script src="js/main.js" defer></script>
-  
-  <!-- ملفات خاصة بالترحيب -->
-  <link rel="stylesheet" href="css/index.css">
-  <script src="js/music.js" defer></script>
-  <script src="js/controls.js" defer></script>
-  <script src="js/offers.js" defer></script>
-  <script src="js/index.js" defer></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HDB Global Hospitality — Welcome</title>
+  <link rel="stylesheet" href="css/hdb-global.css">
+  <script src="js/hdb-global.js" defer></script>
+  <script src="js/hdb-guest-api.js" defer></script>
 </head>
 <body class="index-page">
-  <!-- لوجو -->
-  <div class="logo-circle">
-    <img src="assets/logo.png" alt="HDB Hotel Logo">
-  </div>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="hdb-shell welcome-shell">
+    <header class="hdb-topbar">
+      <div class="hdb-brand"><div class="hdb-logo"><img src="assets/logo.png" alt="HDB Hotel"></div><div class="hdb-brand-copy"><strong>HDB GLOBAL HOSPITALITY</strong><span>Personalized Guest Experience OS</span></div></div>
+      <div class="hdb-status"><div class="status-block"><label id="room-label">الغرفة</label><strong id="room-number">1201</strong></div><div class="status-sep"></div><div class="status-block"><label id="time-label">الوقت</label><strong id="time">--:--</strong></div><div class="status-sep"></div><div class="status-block status-date"><label id="date-label">التاريخ</label><strong id="date">—</strong></div></div>
+    </header>
 
-  <!-- رسالة ترحيب -->
-  <h1 class="welcome" data-lang="welcome"></h1>
+    <main class="welcome-stage">
+      <section class="welcome-card">
+        <div class="welcome-card-glow"></div>
+        <div class="welcome-kicker"><span class="live-dot"></span><span id="stay-status">إقامتك جاهزة</span></div>
+        <h1 class="welcome" id="welcome-title">أهلًا بك في <span>هدب</span></h1>
+        <p class="welcome-sub" id="welcome-subtitle">إقامة هادئة وتجربة رقمية صُممت لتكون كل خدمات الفندق بين يديك.</p>
+        <div class="guest-line"><div class="guest-avatar" aria-hidden="true">H</div><div class="guest-copy"><span id="guest-label">مرحبًا</span><strong id="guest-name">ضيف الفندق</strong></div><div class="guest-room"><span id="room-summary-label">رقم الغرفة</span><strong id="room-number-copy">1201</strong></div></div>
+        <div class="welcome-actions"><button id="ok-btn" class="primary-action focusable" type="button"><span id="enter-label">الدخول إلى خدمات الفندق</span><b class="action-arrow">←</b></button><div class="language-row"><button id="btn-ar" class="language-action focusable" type="button">العربية</button><button id="btn-en" class="language-action focusable" type="button">English</button></div></div>
+      </section>
 
-  <!-- بيانات الغرفة -->
-  <p class="info"><span data-lang="room"></span> <span id="room-number"></span></p>
-  <p class="info"><span data-lang="time"></span> <span id="time"></span></p>
-  <p class="info"><span data-lang="date"></span> <span id="date"></span></p>
+      <aside class="stay-dashboard">
+        <section class="dashboard-card weather-card"><div class="card-heading"><span id="today-label">اليوم في الرياض</span><b>31°</b></div><div class="weather-main"><div class="weather-symbol" aria-hidden="true"><span></span></div><div><strong id="weather-status">أجواء صافية</strong><span id="weather-range">العظمى 35° · الصغرى 23°</span></div></div></section>
+        <section class="dashboard-card prayer-card"><div class="card-heading"><span id="prayer-label">الصلاة القادمة</span><b id="prayer-time">12:04</b></div><div class="prayer-main"><strong id="prayer-name">الظهر</strong><span id="prayer-city">حسب توقيت الرياض</span></div><div class="progress-track"><i></i></div></section>
+        <section class="dashboard-card assistance-card"><div><span class="mini-label" id="concierge-label">خدمة الضيوف</span><strong id="concierge-title">نحن هنا لخدمتك طوال اليوم</strong></div><div class="assistance-status"><span class="live-dot"></span><b id="online-label">Global Core متصل</b></div></section>
+      </aside>
+    </main>
 
-  <!-- ملاحظة -->
-  <p class="note" data-lang="continue"></p>
-
-  <!-- زر موافق -->
-  <button class="approve-btn" id="ok-btn" data-lang="ok"></button>
-
-  <!-- أزرار اللغة -->
-  <div class="lang-buttons">
-    <button class="button" id="btn-en">English</button>
-	<button class="button" id="btn-ar">العربية</button>
+    <footer class="hdb-footer"><span><span class="footer-dot"></span>HDB Global Hospitality Online</span><span id="continue-label">استخدم الأسهم ثم اضغط موافق للمتابعة</span></footer>
   </div>
 </body>
 </html>

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "room-1701",
+    "number": "1701",
+    "floor": 17,
+    "guest_name": "خالد العتيبي",
+    "status": "occupied",
+    "tv_status": "online",
+    "language": "ar",
+    "check_in": "2026-07-20",
+    "check_out": "2026-07-23"
+  },
+  {
+    "id": "room-1702",
+    "number": "1702",
+    "floor": 17,
+    "guest_name": null,
+    "status": "vacant",
+    "tv_status": "online",
+    "language": "ar",
+    "check_in": null,
+    "check_out": null
+  },
+  {
+    "id": "room-1704",
+    "number": "1704",
+    "floor": 17,
+    "guest_name": "حاتم محمد",
+    "status": "occupied",
+    "tv_status": "online",
+    "language": "ar",
+    "check_in": "2026-07-21",
+    "check_out": "2026-07-25"
+  }
+]

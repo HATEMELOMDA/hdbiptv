@@ -1,0 +1,3 @@
+HDBIPTV Hospitality 1.2 Guest UX full project package
+Build ready: 2026-07-21
+Scope: original project + redesigned welcome + redesigned menu + remote navigation + existing control/API

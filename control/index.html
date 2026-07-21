@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HDB Global Hospitality Platform</title>
+  <link rel="stylesheet" href="global.css">
+  <script src="global.js" defer></script>
+</head>
+<body>
+  <div class="global-app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">H</div>
+        <div><strong>HDB GLOBAL</strong><span>Hospitality Experience OS</span></div>
+      </div>
+      <div class="property-switcher">
+        <small>المنشأة الحالية</small>
+        <button id="property-button"><span><b>HDB Riyadh Tower</b><em>الرياض · 120 غرفة</em></span><i>⌄</i></button>
+      </div>
+      <nav id="main-nav">
+        <div class="nav-group"><label>القيادة</label>
+          <button class="nav-item active" data-view="command"><span>⌂</span>مركز القيادة</button>
+          <button class="nav-item" data-view="operations"><span>◫</span>تشغيل الفندق</button>
+        </div>
+        <div class="nav-group"><label>النزلاء والغرف</label>
+          <button class="nav-item" data-view="properties"><span>▦</span>المباني والأدوار</button>
+          <button class="nav-item" data-view="rooms"><span>▣</span>الغرف والإقامات</button>
+          <button class="nav-item" data-view="guests"><span>♙</span>النزلاء</button>
+        </div>
+        <div class="nav-group"><label>التلفزيون والمحتوى</label>
+          <button class="nav-item" data-view="devices"><span>▤</span>الأجهزة</button>
+          <button class="nav-item" data-view="channels"><span>▶</span>القنوات والمصادر</button>
+          <button class="nav-item" data-view="packages"><span>◈</span>الباقات وEPG</button>
+          <button class="nav-item" data-view="experience"><span>✦</span>تجربة النزيل</button>
+        </div>
+        <div class="nav-group"><label>الخدمات والتكامل</label>
+          <button class="nav-item" data-view="requests"><span>◇</span>الطلبات والخدمات</button>
+          <button class="nav-item" data-view="signage"><span>▧</span>الشاشات الإعلانية</button>
+          <button class="nav-item" data-view="integrations"><span>⌘</span>التكاملات</button>
+        </div>
+        <div class="nav-group"><label>الإدارة</label>
+          <button class="nav-item" data-view="reports"><span>⌁</span>التقارير</button>
+          <button class="nav-item" data-view="users"><span>♙</span>المستخدمون والصلاحيات</button>
+          <button class="nav-item" data-view="system"><span>⚙</span>النظام</button>
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="system-pulse"><i></i><span><b>All systems operational</b><small>Global Core 2.0</small></span></div>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div class="title-block"><small id="view-kicker">GLOBAL OVERVIEW</small><h1 id="view-title">مركز القيادة</h1><p id="view-subtitle">صورة لحظية لتشغيل الفندق وتجربة النزلاء</p></div>
+        <div class="top-actions">
+          <div class="global-search"><span>⌕</span><input id="global-search" placeholder="ابحث في الغرف أو الأجهزة أو القنوات"></div>
+          <button id="sync-btn" class="btn secondary">مزامنة</button>
+          <button id="primary-btn" class="btn primary">إجراء جديد</button>
+          <button class="profile"><span>HE</span><i><b>Hatem Elomda</b><small>System Administrator</small></i></button>
+        </div>
+      </header>
+      <section id="workspace-content" class="content"></section>
+    </main>
+  </div>
+
+  <dialog id="global-modal">
+    <form method="dialog" id="modal-form">
+      <header><div><small id="modal-kicker">CREATE</small><h2 id="modal-title">إضافة عنصر</h2></div><button class="close" value="cancel">×</button></header>
+      <div id="modal-fields" class="modal-fields"></div>
+      <footer><button class="btn secondary" value="cancel">إلغاء</button><button class="btn primary" id="modal-save" value="default">حفظ</button></footer>
+    </form>
+  </dialog>
+  <div id="toast" class="toast"></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HDB Hospitality — Express Checkout</title>
+  <link rel="stylesheet" href="css/hdb-global.css"><link rel="stylesheet" href="css/hdb-extensions.css">
+  <script src="js/hdb-global.js" defer></script><script src="js/hdb-guest-api.js" defer></script>
+</head>
+<body>
+  <div class="guest-feature-page">
+    <header class="feature-header">
+      <div class="hdb-brand"><div class="hdb-logo"><img src="assets/logo.png" alt="HDB"></div><div class="heading"><h1>المغادرة السريعة</h1><p>إرسال طلب المغادرة للغرفة <span id="checkout-room">1201</span> بدون انتظار</p></div></div>
+      <button class="back-button focusable" onclick="location.href='menu.html'">العودة للقائمة</button>
+    </header>
+    <main class="feature-grid">
+      <section class="feature-card">
+        <small class="eyebrow">EXPRESS CHECKOUT</small><h2>خطوات المغادرة</h2><p>سيصل طلبك مباشرة إلى الاستقبال. يتم تأكيد الحساب واستلام المفتاح وفق سياسة الفندق.</p>
+        <div class="checkout-steps">
+          <div class="checkout-step"><i>✓</i><span><b>مراجعة الحساب</b><small>تم فتح شاشة الفاتورة ويمكن مراجعتها قبل التأكيد.</small></span></div>
+          <div class="checkout-step"><i>2</i><span><b>تأكيد وقت المغادرة</b><small>سيتم تسجيل طلب المغادرة الآن لدى الاستقبال.</small></span></div>
+          <div class="checkout-step"><i>3</i><span><b>استلام التأكيد</b><small>ستظهر رسالة على التلفزيون بعد اعتماد الطلب.</small></span></div>
+        </div>
+        <div class="feature-actions"><button id="confirm-checkout" class="primary-action focusable">تأكيد طلب المغادرة</button><button class="language-action focusable" onclick="location.href='bill.html'">مراجعة الفاتورة</button></div>
+      </section>
+      <aside class="feature-card">
+        <small class="eyebrow">BEFORE YOU LEAVE</small><h2>هل تحتاج مساعدة؟</h2><p>يمكن طلب حمل الأمتعة أو سيارة أو التواصل مع الاستقبال قبل المغادرة.</p>
+        <div class="amenity-grid">
+          <article class="amenity-card"><h3>حمل الأمتعة</h3><p>إرسال موظف إلى الغرفة خلال <strong>5–10 دقائق</strong>.</p></article>
+          <article class="amenity-card"><h3>طلب سيارة</h3><p>تنسيق سيارة أجرة أو خدمة نقل الفندق.</p></article>
+          <article class="amenity-card"><h3>تمديد الإقامة</h3><p>طلب مراجعة توافر الغرفة لليلة إضافية.</p></article>
+          <article class="amenity-card"><h3>التواصل مع الاستقبال</h3><p>الدعم متاح طوال اليوم لخدمتك.</p></article>
+        </div>
+        <div class="feature-actions"><button class="language-action focusable" onclick="location.href='services.html'">خدمات الغرفة</button></div>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>
