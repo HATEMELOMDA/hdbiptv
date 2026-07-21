@@ -2,44 +2,70 @@
 <html lang="ar" dir="rtl" data-page="index">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HDB Hotel - Welcome</title>
-
-  <!-- ملفات مشتركة -->
-  <script src="js/i18n.js" defer></script>
-  <script src="js/main.js" defer></script>
-  
-  <!-- ملفات خاصة بالترحيب -->
-  <link rel="stylesheet" href="css/index.css">
-  <script src="js/music.js" defer></script>
-  <script src="js/controls.js" defer></script>
-  <script src="js/offers.js" defer></script>
-  <script src="js/index.js" defer></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HDB Hospitality — Welcome</title>
+  <link rel="stylesheet" href="css/hdb-global.css">
+  <script src="js/hdb-global.js" defer></script>
 </head>
 <body class="index-page">
-  <!-- لوجو -->
-  <div class="logo-circle">
-    <img src="assets/logo.png" alt="HDB Hotel Logo">
-  </div>
+  <div class="hdb-shell">
+    <header class="hdb-topbar">
+      <div class="hdb-brand">
+        <div class="hdb-logo"><img src="assets/logo.png" alt="HDB Hotel"></div>
+        <div class="hdb-brand-copy">
+          <strong>HDB HOSPITALITY</strong>
+          <span>Guest Experience Platform</span>
+        </div>
+      </div>
+      <div class="hdb-status">
+        <div class="status-block"><label id="room-label">الغرفة</label><strong id="room-number">1208</strong></div>
+        <div class="status-sep"></div>
+        <div class="status-block"><label>الوقت</label><strong id="time">--:--</strong></div>
+        <div class="status-sep"></div>
+        <div class="status-block"><label>التاريخ</label><strong id="date">—</strong></div>
+      </div>
+    </header>
 
-  <!-- رسالة ترحيب -->
-  <h1 class="welcome" data-lang="welcome"></h1>
+    <main class="hdb-main welcome-layout">
+      <section class="welcome-hero">
+        <div class="eyebrow">A PERSONALIZED HOTEL EXPERIENCE</div>
+        <h1 class="welcome" id="welcome-title">أهلًا بك في <span>هدب</span></h1>
+        <p class="welcome-sub" id="welcome-subtitle">إقامة هادئة وتجربة رقمية صُممت لتكون كل خدمات الفندق بين يديك.</p>
+        <div class="guest-summary">
+          <div class="guest-chip"><span id="guest-label">النزيل</span><b id="guest-name">ضيف الفندق</b></div>
+          <div class="guest-chip"><span class="footer-dot"></span><span id="online-label">الخدمات متصلة</span></div>
+        </div>
+      </section>
 
-  <!-- بيانات الغرفة -->
-  <p class="info"><span data-lang="room"></span> <span id="room-number"></span></p>
-  <p class="info"><span data-lang="time"></span> <span id="time"></span></p>
-  <p class="info"><span data-lang="date"></span> <span id="date"></span></p>
+      <aside class="welcome-side">
+        <section class="weather-card">
+          <div>
+            <div class="weather-title"><strong>الرياض</strong><span>اليوم</span></div>
+            <div class="weather-value">31°</div>
+            <div class="weather-desc">أجواء صافية</div>
+          </div>
+          <div class="prayer-row">
+            <div><span>الصلاة القادمة</span><strong>الظهر</strong></div>
+            <div><span>الوقت</span><strong>12:04</strong></div>
+          </div>
+        </section>
 
-  <!-- ملاحظة -->
-  <p class="note" data-lang="continue"></p>
+        <section class="quick-card">
+          <h3 id="explore-label">استكشف إقامتك</h3>
+          <button id="ok-btn" class="primary-action focusable"><span id="enter-label">الدخول إلى خدمات الفندق</span></button>
+          <div class="language-row">
+            <button id="btn-ar" class="language-action focusable">العربية</button>
+            <button id="btn-en" class="language-action focusable">English</button>
+          </div>
+        </section>
+      </aside>
+    </main>
 
-  <!-- زر موافق -->
-  <button class="approve-btn" id="ok-btn" data-lang="ok"></button>
-
-  <!-- أزرار اللغة -->
-  <div class="lang-buttons">
-    <button class="button" id="btn-en">English</button>
-	<button class="button" id="btn-ar">العربية</button>
+    <footer class="hdb-footer">
+      <span><span class="footer-dot"></span>HDB IPTV Online</span>
+      <span>اضغط موافق للمتابعة</span>
+    </footer>
   </div>
 </body>
 </html>
