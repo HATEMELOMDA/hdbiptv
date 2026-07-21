@@ -1,0 +1,56 @@
+name: Package HDB Original Hospitality
+
+on:
+  push:
+    branches:
+      - build/hospitality-alpha1
+  workflow_dispatch:
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate JavaScript
+        run: |
+          node --check js/hdb-global.js
+          node --check js/hdb-services.js
+          node --check js/hdb-dining.js
+          node --check control/control.js
+
+      - name: Validate PHP
+        run: |
+          php -l api/bootstrap.php
+          php -l api/index.php
+
+      - name: Verify required files
+        run: |
+          test -f index.html
+          test -f menu.html
+          test -f tv.html
+          test -f services.html
+          test -f dining.html
+          test -f messages.html
+          test -f control/index.html
+          test -f api/index.php
+
+      - name: Build ZIP
+        run: |
+          mkdir -p dist/HDBIPTV_HOSPITALITY_1.1_ALPHA
+          rsync -a ./ dist/HDBIPTV_HOSPITALITY_1.1_ALPHA/ \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'dist' \
+            --exclude 'platform-alpha1'
+          cd dist
+          zip -r HDBIPTV_HOSPITALITY_1.1_ALPHA.zip HDBIPTV_HOSPITALITY_1.1_ALPHA
+
+      - name: Upload ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: HDBIPTV_HOSPITALITY_1.1_ALPHA
+          path: dist/HDBIPTV_HOSPITALITY_1.1_ALPHA.zip
+          if-no-files-found: error
+          retention-days: 90
