@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HDB Hospitality Control</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="admin-body">
+  <section id="loginScreen" class="login-shell">
+    <div class="login-card card">
+      <div class="brand-mark">HDB</div>
+      <h1>منصة إدارة الضيافة</h1>
+      <p class="muted">إدارة الغرف والأجهزة والقنوات وتجربة النزيل من مكان واحد.</p>
+      <form id="loginForm">
+        <div class="field"><label>اسم المستخدم</label><input id="loginUser" value="admin" autocomplete="username" required></div>
+        <div class="field"><label>كلمة المرور</label><input id="loginPass" value="admin123" type="password" autocomplete="current-password" required></div>
+        <button class="btn primary" type="submit">تسجيل الدخول</button>
+      </form>
+      <div class="login-hint">بيانات البداية: admin / admin123 — غيّر كلمة المرور قبل التشغيل الفعلي.</div>
+    </div>
+  </section>
+
+  <div id="appShell" class="admin-shell hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="side-brand">
+        <div class="brand-mark">HDB</div>
+        <div><strong>Hospitality OS</strong><small>IPTV Control Center</small></div>
+      </div>
+
+      <nav>
+        <div class="nav-section">
+          <div class="nav-label">مركز القيادة</div>
+          <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◫</span>لوحة المتابعة</button>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">تشغيل الفندق</div>
+          <button class="nav-item" data-view="rooms"><span class="nav-icon">▦</span>الغرف والإقامات</button>
+          <button class="nav-item" data-view="devices"><span class="nav-icon">▣</span>التلفزيونات والأجهزة</button>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">المحتوى والتجربة</div>
+          <button class="nav-item" data-view="channels"><span class="nav-icon">▶</span>القنوات والبث</button>
+          <button class="nav-item" data-view="messages"><span class="nav-icon">✉</span>رسائل النزلاء</button>
+          <button class="nav-item" data-view="services"><span class="nav-icon">◇</span>خدمات الفندق</button>
+          <button class="nav-item" data-view="requests"><span class="nav-icon">✓</span>طلبات الخدمات</button>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">النظام</div>
+          <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>الهوية والإعدادات</button>
+          <button class="nav-item" data-view="audit"><span class="nav-icon">≋</span>سجل العمليات</button>
+        </div>
+      </nav>
+
+      <div class="side-footer">
+        <div class="user-chip"><div><strong id="userName">Administrator</strong><small class="muted">مدير النظام</small></div><button id="logoutBtn" class="icon-btn" title="خروج">↪</button></div>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="topbar">
+        <div class="topbar-left"><button id="mobileMenu" class="icon-btn mobile-menu">☰</button><h2 id="topTitle">لوحة المتابعة</h2></div>
+        <div class="topbar-actions"><span id="publishState" class="pill"><span class="status-dot"></span>غير منشور</span><button id="previewBtn" class="btn ghost">معاينة التلفزيون</button><button id="publishBtn" class="btn primary">نشر التحديثات</button></div>
+      </header>
+
+      <div class="content">
+        <section id="view-dashboard" class="view active">
+          <div class="page-head"><div><h1>صباح الخير</h1><p>نظرة مباشرة على تشغيل الفندق ومنصة التلفزيون.</p></div><span id="systemVersion" class="pill">v2</span></div>
+          <div id="metrics" class="metrics"></div>
+          <div class="dashboard-grid">
+            <div class="panel card"><div class="panel-head"><h3>طلبات الخدمات الأخيرة</h3><button class="btn ghost" data-jump="requests">عرض الكل</button></div><div id="recentRequests"></div></div>
+            <div class="panel card"><div class="panel-head"><h3>آخر العمليات</h3></div><div id="recentAudit" class="activity-list"></div></div>
+          </div>
+        </section>
+
+        <section id="view-rooms" class="view">
+          <div class="page-head"><div><h1>الغرف والإقامات</h1><p>إدارة حالة الغرفة والتسكين والمغادرة وربط الجهاز.</p></div><button class="btn primary" data-add="rooms">إضافة غرفة</button></div>
+          <div class="panel card"><div class="toolbar"><div class="search-box"><input data-search="rooms" placeholder="بحث برقم الغرفة أو الدور"></div><span id="roomsCount" class="pill"></span></div><div id="roomsTable"></div></div>
+        </section>
+
+        <section id="view-devices" class="view">
+          <div class="page-head"><div><h1>التلفزيونات والأجهزة</h1><p>متابعة الأجهزة وربطها بالغرف ومعرفة حالة الاتصال.</p></div><button class="btn primary" data-add="devices">إضافة جهاز</button></div>
+          <div class="panel card"><div class="toolbar"><div class="search-box"><input data-search="devices" placeholder="بحث بالكود أو الغرفة أو الماركة"></div><span id="devicesCount" class="pill"></span></div><div id="devicesTable"></div></div>
+        </section>
+
+        <section id="view-channels" class="view">
+          <div class="page-head"><div><h1>القنوات والبث</h1><p>إدارة الترتيب والمصادر والباقات وحالة البث.</p></div><button class="btn primary" data-add="channels">إضافة قناة</button></div>
+          <div class="panel card"><div class="toolbar"><div class="search-box"><input data-search="channels" placeholder="بحث باسم أو رقم القناة"></div><span id="channelsCount" class="pill"></span></div><div id="channelsTable"></div></div>
+        </section>
+
+        <section id="view-messages" class="view">
+          <div class="page-head"><div><h1>رسائل النزلاء</h1><p>إرسال رسائل عامة أو مخصصة لدور أو غرفة.</p></div><button class="btn primary" data-add="messages">رسالة جديدة</button></div>
+          <div class="panel card"><div id="messagesTable"></div></div>
+        </section>
+
+        <section id="view-services" class="view">
+          <div class="page-head"><div><h1>خدمات الفندق</h1><p>الخدمات التي تظهر للنزيل على شاشة التلفزيون.</p></div><button class="btn primary" data-add="services">إضافة خدمة</button></div>
+          <div class="panel card"><div id="servicesTable"></div></div>
+        </section>
+
+        <section id="view-requests" class="view">
+          <div class="page-head"><div><h1>طلبات الخدمات</h1><p>متابعة الطلب من الإنشاء حتى التنفيذ والإغلاق.</p></div></div>
+          <div class="panel card"><div id="requestsTable"></div></div>
+        </section>
+
+        <section id="view-settings" class="view">
+          <div class="page-head"><div><h1>الهوية وتجربة النزيل</h1><p>تعديل اسم الفندق ورسالة الترحيب وألوان الواجهة.</p></div></div>
+          <form id="settingsForm" class="panel card">
+            <div class="grid-2">
+              <div class="field"><label>اسم الفندق بالعربي</label><input name="hotel_name_ar"></div>
+              <div class="field"><label>اسم الفندق بالإنجليزي</label><input name="hotel_name_en"></div>
+              <div class="field"><label>رسالة الترحيب بالعربي</label><input name="welcome_ar"></div>
+              <div class="field"><label>رسالة الترحيب بالإنجليزي</label><input name="welcome_en"></div>
+              <div class="field"><label>اللون الرئيسي</label><input name="primary" type="color"></div>
+              <div class="field"><label>لون الخلفية</label><input name="background" type="color"></div>
+              <div class="field"><label>لون البطاقات</label><input name="surface" type="color"></div>
+              <div class="field"><label>رابط صورة الخلفية</label><input name="hero_image" placeholder="https://..."></div>
+            </div>
+            <div class="modal-actions"><button class="btn primary" type="submit">حفظ الإعدادات</button></div>
+          </form>
+        </section>
+
+        <section id="view-audit" class="view">
+          <div class="page-head"><div><h1>سجل العمليات</h1><p>تاريخ التعديلات والنشر والتسكين والمغادرة.</p></div></div>
+          <div class="panel card"><div id="auditTable"></div></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toastStack" class="toast-stack"></div>
+  <script src="../assets/admin.js"></script>
+</body>
+</html>
