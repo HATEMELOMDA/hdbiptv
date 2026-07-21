@@ -14,10 +14,24 @@ const $=id=>document.getElementById(id);
 const safe=value=>String(value??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const tr=(ar,en)=>language==='ar'?ar:en;
 
+function buildApiUrl(action){
+  const [route,...parts]=String(action).split('&');
+  const url=new URL(API,window.location.href);
+  url.searchParams.set('action',route);
+  parts.forEach(part=>{
+    const separator=part.indexOf('=');
+    if(separator<0)return;
+    const key=part.slice(0,separator);
+    const value=part.slice(separator+1);
+    url.searchParams.set(key,decodeURIComponent(value));
+  });
+  return url.toString();
+}
+
 async function api(action,{method='GET',body=null}={}){
   const options={method,headers:{Accept:'application/json'}};
   if(body){options.headers['Content-Type']='application/json';options.body=JSON.stringify(body)}
-  const response=await fetch(`${API}?action=${encodeURIComponent(action)}`,options);
+  const response=await fetch(buildApiUrl(action),options);
   const data=await response.json().catch(()=>({ok:false,error:'Invalid server response'}));
   if(!response.ok||!data.ok)throw new Error(data.error||'Request failed');
   return data;
@@ -123,7 +137,7 @@ function stopVideo(){const player=$('videoPlayer');player.pause();player.removeA
 function showDialog(title,body,buttons,onSelect){mode='dialog';dialogChoice=0;const dialog=$('dialog');dialog.innerHTML=`<h3>${safe(title)}</h3><p>${safe(body)}</p><div class="dialog-actions">${buttons.map((button,index)=>`<button data-dialog-choice="${index}" class="${index===buttons.length-1?'primary':''}">${safe(button)}</button>`).join('')}</div>`;dialog.classList.remove('hidden');dialog._onSelect=onSelect;dialog.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>onSelect(Number(button.dataset.dialogChoice))));updateDialogFocus()}
 function updateDialogFocus(){$('dialog').querySelectorAll('button').forEach((button,index)=>button.style.outline=index===dialogChoice?'3px solid rgba(210,178,114,.6)':'none')}
 function handleDialogKey(key,code){const buttons=[...$('dialog').querySelectorAll('button')];if(key==='ArrowLeft'||key==='ArrowRight'||code===37||code===39){dialogChoice=(dialogChoice+1)%buttons.length;updateDialogFocus()}if(key==='Enter'||code===13)$('dialog')._onSelect?.(dialogChoice);if(key==='Escape'||key==='Backspace'||code===10009||code===461)hideDialog()}
-function hideDialog(){ $('dialog').classList.add('hidden'); mode=$('overlay').classList.contains('hidden')?'menu':'overlay'; if(mode==='overlay')updateOverlayFocus();else updateMenuFocus() }
+function hideDialog(){$('dialog').classList.add('hidden');mode=$('overlay').classList.contains('hidden')?'menu':'overlay';if(mode==='overlay')updateOverlayFocus();else updateMenuFocus()}
 
 function closeCurrent(){if(mode==='video'){stopVideo();return}if(mode==='dialog'){hideDialog();return}if(mode==='overlay'){$('overlay').classList.add('hidden');mode='menu';overlayItems=[];focusIndex=0;updateMenuFocus()}}
 
