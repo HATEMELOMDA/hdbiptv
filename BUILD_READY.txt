@@ -1,3 +1,3 @@
-HDBIPTV Hospitality 1.2 Guest UX full project package
+HDBIPTV Global Hospitality V2
 Build ready: 2026-07-21
-Scope: original project + redesigned welcome + redesigned menu + remote navigation + existing control/API
+Scope: original HDBIPTV project + secure owner setup + session login + CSRF + RBAC + server synchronized control center + central guest experience publishing + Samsung/LG web runtime.
