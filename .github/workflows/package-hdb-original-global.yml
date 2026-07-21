@@ -1,4 +1,4 @@
-name: Package HDB Original Hospitality
+name: Package HDB Global Hospitality V2
 
 on:
   push:
@@ -19,14 +19,25 @@ jobs:
       - name: Validate JavaScript
         run: |
           node --check js/hdb-global.js
+          node --check js/hdb-runtime.js
           node --check js/hdb-services.js
           node --check js/hdb-dining.js
+          node --check control/api-client.js
+          node --check control/enterprise.js
+          node --check control/login.js
           node --check control/control.js
 
       - name: Validate PHP
         run: |
           php -l api/bootstrap.php
+          php -l api/security.php
+          php -l api/setup.php
+          php -l api/auth.php
           php -l api/index.php
+
+      - name: Validate JSON
+        run: |
+          python -m json.tool api/data/state.json >/dev/null
 
       - name: Verify required files
         run: |
@@ -37,25 +48,31 @@ jobs:
           test -f dining.html
           test -f messages.html
           test -f control/index.html
+          test -f control/login.html
+          test -f control/api-client.js
+          test -f control/enterprise.js
           test -f api/index.php
+          test -f api/auth.php
+          test -f api/setup.php
           test -f css/hdb-global.css
           test -f js/hdb-global.js
+          test -f js/hdb-runtime.js
 
       - name: Build ZIP
         run: |
-          mkdir -p dist/HDBIPTV_HOSPITALITY_1.2_GUEST_UX
-          rsync -a ./ dist/HDBIPTV_HOSPITALITY_1.2_GUEST_UX/ \
+          mkdir -p dist/HDBIPTV_GLOBAL_HOSPITALITY_V2
+          rsync -a ./ dist/HDBIPTV_GLOBAL_HOSPITALITY_V2/ \
             --exclude '.git' \
             --exclude '.github' \
             --exclude 'dist' \
             --exclude 'platform-alpha1'
           cd dist
-          zip -r HDBIPTV_HOSPITALITY_1.2_GUEST_UX.zip HDBIPTV_HOSPITALITY_1.2_GUEST_UX
+          zip -r HDBIPTV_GLOBAL_HOSPITALITY_V2.zip HDBIPTV_GLOBAL_HOSPITALITY_V2
 
       - name: Upload ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: HDBIPTV_HOSPITALITY_1.2_GUEST_UX
-          path: dist/HDBIPTV_HOSPITALITY_1.2_GUEST_UX.zip
+          name: HDBIPTV_GLOBAL_HOSPITALITY_V2
+          path: dist/HDBIPTV_GLOBAL_HOSPITALITY_V2.zip
           if-no-files-found: error
           retention-days: 90
