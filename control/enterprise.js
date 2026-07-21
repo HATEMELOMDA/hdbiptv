@@ -1,4 +1,5 @@
 (function(){'use strict';
+var style=document.createElement('link');style.rel='stylesheet';style.href='enterprise.css';document.head.appendChild(style);
 var KEY='hdb_control_state_v11';
 var originalSetItem=localStorage.setItem.bind(localStorage);
 var syncTimer=null;
