@@ -71,13 +71,14 @@ jobs:
             'http://127.0.0.1:8090/api.php?action=publish' \
             | php -r '$d=json_decode(stream_get_contents(STDIN),true); if(empty($d["published_at"])) exit(1);'
 
-      - name: Build ZIP package
-        run: |
-          cd hospitality-v2
-          zip -r ../HDB_HOSPITALITY_V2_ALPHA.zip . -x 'storage/database.json' 'storage/database.backup.json'
+          rm -f hospitality-v2/storage/database.json hospitality-v2/storage/database.backup.json
 
       - uses: actions/upload-artifact@v4
         with:
           name: HDB-HOSPITALITY-V2-ALPHA
-          path: HDB_HOSPITALITY_V2_ALPHA.zip
+          path: |
+            hospitality-v2
+            !hospitality-v2/storage/database.json
+            !hospitality-v2/storage/database.backup.json
           if-no-files-found: error
+          retention-days: 90
