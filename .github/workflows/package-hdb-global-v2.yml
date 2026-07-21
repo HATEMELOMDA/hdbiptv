@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - build/hdb-global-v2
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -28,6 +31,7 @@ jobs:
           php -l api/index.php
           php -l api/v2/bootstrap.php
           php -l api/v2/index.php
+          php -l install.php
 
       - name: Validate JSON
         run: |
