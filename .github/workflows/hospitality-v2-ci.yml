@@ -1,0 +1,84 @@
+name: Hospitality v2 CI
+
+on:
+  push:
+    branches: [hdb-hospitality-v2]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'hospitality-v2/**'
+      - '.github/workflows/hospitality-v2-ci.yml'
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: PHP syntax
+        run: |
+          php -l hospitality-v2/src/bootstrap.php
+          php -l hospitality-v2/public/api.php
+          php -l hospitality-v2/public/index.php
+
+      - name: JavaScript syntax
+        run: |
+          node --check hospitality-v2/public/assets/admin.js
+          node --check hospitality-v2/public/assets/tv.js
+
+      - name: Required files
+        run: |
+          test -f hospitality-v2/public/admin/index.html
+          test -f hospitality-v2/public/tv/index.html
+          test -f hospitality-v2/public/assets/styles.css
+
+      - name: Runtime API smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f hospitality-v2/storage/database.json hospitality-v2/storage/database.backup.json
+          php -S 127.0.0.1:8090 -t hospitality-v2/public >/tmp/hdb-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          sleep 2
+
+          curl -fsS 'http://127.0.0.1:8090/api.php?action=health' \
+            | php -r '$d=json_decode(stream_get_contents(STDIN),true); if(!is_array($d)||empty($d["ok"])) exit(1);'
+
+          LOGIN=$(curl -fsS -c /tmp/hdb-cookies.txt \
+            -H 'Content-Type: application/json' \
+            -d '{"username":"admin","password":"admin123"}' \
+            'http://127.0.0.1:8090/api.php?action=login')
+          CSRF=$(printf '%s' "$LOGIN" | php -r '$d=json_decode(stream_get_contents(STDIN),true); if(empty($d["csrf"])) exit(1); echo $d["csrf"];')
+
+          curl -fsS -b /tmp/hdb-cookies.txt \
+            'http://127.0.0.1:8090/api.php?action=dashboard' \
+            | php -r '$d=json_decode(stream_get_contents(STDIN),true); if(empty($d["metrics"]["rooms_total"])) exit(1);'
+
+          curl -fsS \
+            'http://127.0.0.1:8090/api.php?action=tv-context&room=1201' \
+            | php -r '$d=json_decode(stream_get_contents(STDIN),true); if(($d["room"]["number"]??"")!=="1201") exit(1);'
+
+          curl -fsS -H 'Content-Type: application/json' \
+            -d '{"room":"1201","service_id":"svc_housekeeping","note":"CI smoke test"}' \
+            'http://127.0.0.1:8090/api.php?action=service-request' \
+            | php -r '$d=json_decode(stream_get_contents(STDIN),true); if(($d["request"]["status"]??"")!=="new") exit(1);'
+
+          curl -fsS -b /tmp/hdb-cookies.txt \
+            -H "X-HDB-CSRF: $CSRF" \
+            -H 'Content-Type: application/json' \
+            -d '{}' \
+            'http://127.0.0.1:8090/api.php?action=publish' \
+            | php -r '$d=json_decode(stream_get_contents(STDIN),true); if(empty($d["published_at"])) exit(1);'
+
+          rm -f hospitality-v2/storage/database.json hospitality-v2/storage/database.backup.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HDB-HOSPITALITY-V2-ALPHA
+          path: |
+            hospitality-v2
+            !hospitality-v2/storage/database.json
+            !hospitality-v2/storage/database.backup.json
+          if-no-files-found: error
+          retention-days: 90

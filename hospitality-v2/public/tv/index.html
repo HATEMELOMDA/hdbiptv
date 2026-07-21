@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>HDB Guest Experience</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="tv-body">
+  <main id="tvShell" class="tv-shell">
+    <div class="tv-content">
+      <header class="tv-top">
+        <div class="tv-logo"><div class="tv-logo-mark">HDB</div><div><strong id="hotelName">HDB Hotel</strong><small id="roomLabel">Room —</small></div></div>
+        <div class="tv-clock"><div id="tvTime" class="tv-time">--:--</div><div id="tvDate" class="tv-date">—</div></div>
+      </header>
+
+      <section class="tv-hero">
+        <div id="eyebrow" class="tv-eyebrow">WELCOME</div>
+        <h1 id="welcomeTitle" class="tv-title">مرحبًا بكم</h1>
+        <p id="welcomeSubtitle" class="tv-subtitle">نتمنى لكم إقامة سعيدة ومريحة.</p>
+      </section>
+
+      <section id="mainMenu" class="tv-menu" aria-label="Main menu">
+        <button class="tv-tile focused" data-panel="channels"><span class="tile-icon">▶</span><span class="tile-label" data-ar="التلفزيون" data-en="Live TV">التلفزيون</span></button>
+        <button class="tv-tile" data-panel="services"><span class="tile-icon">◇</span><span class="tile-label" data-ar="خدمات الفندق" data-en="Hotel Services">خدمات الفندق</span></button>
+        <button class="tv-tile" data-panel="dining"><span class="tile-icon">♨</span><span class="tile-label" data-ar="المطاعم" data-en="Dining">المطاعم</span></button>
+        <button class="tv-tile" data-panel="requests"><span class="tile-icon">✓</span><span class="tile-label" data-ar="طلباتي" data-en="My Requests">طلباتي</span></button>
+        <button class="tv-tile" data-panel="messages"><span class="tile-icon">✉</span><span class="tile-label" data-ar="الرسائل" data-en="Messages">الرسائل</span></button>
+        <button class="tv-tile" data-panel="information"><span class="tile-icon">i</span><span class="tile-label" data-ar="معلومات الفندق" data-en="Hotel Information">معلومات الفندق</span></button>
+      </section>
+
+      <footer class="tv-footer"><span id="connectionState">● متصل بالمنصة</span><span><b>OK</b> اختيار &nbsp; <b>◀ ▶</b> تنقل &nbsp; <b>Back</b> رجوع</span></footer>
+    </div>
+
+    <section id="overlay" class="tv-overlay hidden">
+      <div class="overlay-head"><div><small id="overlayKicker" class="tv-eyebrow">HDB HOSPITALITY</small><h2 id="overlayTitle">القنوات</h2></div><button id="closeOverlay" class="overlay-close">رجوع</button></div>
+      <div id="overlayContent"></div>
+    </section>
+
+    <section id="videoStage" class="video-stage hidden">
+      <video id="videoPlayer" autoplay playsinline></video>
+      <div class="video-bar"><div><span id="playingNumber" class="channel-number"></span><strong id="playingName"></strong></div><span>اضغط Back للعودة</span></div>
+    </section>
+
+    <section id="dialog" class="tv-dialog hidden"></section>
+  </main>
+  <script src="../assets/tv.js"></script>
+</body>
+</html>

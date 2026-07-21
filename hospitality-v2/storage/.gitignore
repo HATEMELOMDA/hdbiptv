@@ -1,0 +1,4 @@
+database.json
+database.json.tmp
+!.gitignore
+!.htaccess
